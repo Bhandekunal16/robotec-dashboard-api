@@ -19,8 +19,9 @@ export class RobotecUserService {
 
   async register(body: CreateRobotecUserDto): Promise<any> {
     const query = await this.neo4jService.write(
-      `create (m:man {email:"${body.email}", password:"${body.password}", Password:"${body.password}",phoneNumberPrefix:"${body.phoneNumberPerfix}", return m`,
+      `create (m:man {email:"${body.email}",password:"${body.password}", checkPassword:"${body.password}",phoneNumberPrefix:"${body.phoneNumberPrefix}",phoneNumber:"${body.phoneNumber}"}) return m`,
     );
+
     return { data: query.records };
   }
 }

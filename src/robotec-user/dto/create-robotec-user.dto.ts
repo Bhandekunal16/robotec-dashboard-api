@@ -1,9 +1,9 @@
 export class CreateRobotecUserDto {
-    income: any;
-    expanse: any;
-    email: any;
-    password: any;
-    nickname: any;
-    phoneNumberPerfix: any;
-    website: any;
+  income?: string;
+  expanse?: string;
+  password: string;
+  phoneNumberPrefix: string;
+  phoneNumber: string;
+  checkPassword: string;
+  email: string;
 }
