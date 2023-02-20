@@ -11,8 +11,6 @@ import { RobotecUserModule } from './robotec-user/robotec-user.module';
       host: 'b76e3d84.databases.neo4j.io',
       port: 7687,
       username: 'neo4j',
-
-
       password: 'kH8WQkwu-vK5bmjUYjJ2oe1kbcBeoZdDeErj9o8woSk',
     }),
     RobotecUserModule,
@@ -20,4 +18,4 @@ import { RobotecUserModule } from './robotec-user/robotec-user.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

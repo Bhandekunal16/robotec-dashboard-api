@@ -6,4 +6,5 @@ export class CreateRobotecUserDto {
   phoneNumber: string;
   checkPassword: string;
   email: string;
+  type: string;
 }

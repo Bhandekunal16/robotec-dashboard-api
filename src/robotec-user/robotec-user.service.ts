@@ -19,7 +19,7 @@ export class RobotecUserService {
 
   async register(body: CreateRobotecUserDto): Promise<any> {
     const query = await this.neo4jService.write(
-      `create (m:man {email:"${body.email}",password:"${body.password}", checkPassword:"${body.password}",phoneNumberPrefix:"${body.phoneNumberPrefix}",phoneNumber:"${body.phoneNumber}"}) return m`,
+      `create (m:man {email:"${body.email}",password:"${body.password}", checkPassword:"${body.password}",phoneNumberPrefix:"${body.phoneNumberPrefix}",phoneNumber:"${body.phoneNumber}", type:"${body.type}"}) return m`,
     );
     return { data: query.records };
   }
@@ -28,7 +28,12 @@ export class RobotecUserService {
     const query = await this.neo4jService.write(
       `match (m:man {email:"${body.email}",password:"${body.password}"}) return m`,
     );
-    if (query.records.length !== 0) return { status: true, msg: 'user found' };
+    if (query.records.length !== 0)
+      return {
+        status: true,
+        msg: 'user found',
+        data: query.records[0].get('m')['properties']['type'],
+      };
     else
       return {
         status: false,
