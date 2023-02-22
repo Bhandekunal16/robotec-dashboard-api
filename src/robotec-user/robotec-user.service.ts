@@ -3,6 +3,8 @@ import { Neo4jService } from 'nest-neo4j/dist';
 import { CreateRobotecUserDto } from './dto/create-robotec-user.dto';
 import { UpdateRobotecUserDto } from './dto/update-robotec-user.dto';
 
+const all = [];
+
 @Injectable()
 export class RobotecUserService {
   income: any;
@@ -25,9 +27,11 @@ export class RobotecUserService {
   }
 
   async login(body: CreateRobotecUserDto): Promise<any> {
+    let save = [];
     const query = await this.neo4jService.write(
       `match (m:man {email:"${body.email}",password:"${body.password}"}) return m`,
     );
+
     if (query.records.length !== 0)
       return {
         status: true,
