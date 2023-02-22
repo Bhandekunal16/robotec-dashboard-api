@@ -23,7 +23,21 @@ export class RobotecUserService {
     const query = await this.neo4jService.write(
       `create (m:man {email:"${body.email}",password:"${body.password}", checkPassword:"${body.password}",phoneNumberPrefix:"${body.phoneNumberPrefix}",phoneNumber:"${body.phoneNumber}", type:"${body.type}"}) return m`,
     );
-    return { data: query.records };
+    return {
+      msg: 'user created',
+      status: true,
+    };
+  }
+
+  async avtor(body: CreateRobotecUserDto): Promise<any> {
+    const query = await this.neo4jService.write(
+      `create (m:man {email:"${body.email}"}) return m`,
+    );
+    return {
+      msg: 'user found',
+      status: true,
+      body: query.records[0].get('m')['properties'],
+    };
   }
 
   async login(body: CreateRobotecUserDto): Promise<any> {
@@ -37,6 +51,7 @@ export class RobotecUserService {
         status: true,
         msg: 'user found',
         data: query.records[0].get('m')['properties']['type'],
+        body: query.records[0].get('m')['properties']['email'],
       };
     else
       return {
