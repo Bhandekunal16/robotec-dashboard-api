@@ -10,12 +10,12 @@ export class RobotecUserService {
 
   constructor(@Inject(Neo4jService) private neo4jService: Neo4jService) {}
 
-  async create(body: CreateRobotecUserDto): Promise<any> {
-    const query = await this.neo4jService.write(
-      `create (m:man {income:"${body.income}", expanse:"${body.expanse}"}) return m`,
-    );
-    return { data: query.records };
-  }
+  // async create(body: CreateRobotecUserDto): Promise<any> {
+  //   const query = await this.neo4jService.write(
+  //     `create (m:man {income:"${body.income}", expanse:"${body.expanse}"}) return m`,
+  //   );
+  //   return { data: query.records };
+  // }
 
   async register(body: CreateRobotecUserDto): Promise<any> {
     const query = await this.neo4jService.write(

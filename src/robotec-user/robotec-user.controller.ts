@@ -15,10 +15,10 @@ import { UpdateRobotecUserDto } from './dto/update-robotec-user.dto';
 export class RobotecUserController {
   constructor(private readonly robotecUserService: RobotecUserService) {}
 
-  @Post()
-  create(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return this.robotecUserService.create(createRobotecUserDto);
-  }
+  // @Post()
+  // create(@Body() createRobotecUserDto: CreateRobotecUserDto) {
+  //   return this.robotecUserService.create(createRobotecUserDto);
+  // }
 
   @Post('test')
   register(@Body() createRobotecUserDto: CreateRobotecUserDto) {
