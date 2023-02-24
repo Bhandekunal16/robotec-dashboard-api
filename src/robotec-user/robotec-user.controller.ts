@@ -40,7 +40,7 @@ export class RobotecUserController {
     return this.robotecUserService.shopname(createRobotecUserDto);
   }
 
-  @Get('registershop')
+  @Get('alluser')
   allUser(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.allUser(createRobotecUserDto);
   }

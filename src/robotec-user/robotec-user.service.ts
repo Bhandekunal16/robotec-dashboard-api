@@ -31,12 +31,17 @@ export class RobotecUserService {
   }
 
   async allUser(body: CreateRobotecUserDto): Promise<any> {
+    let data = [];
     const query = await this.neo4jService.write(
       `match (m:man{type: "User"}) return m`,
     );
+    query.records.forEach((e) => {
+      data.push(e.get('m').properties);
+    });
     return {
       msg: 'user found',
       status: true,
+      data: data,
     };
   }
 
