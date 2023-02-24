@@ -29,4 +29,14 @@ export class RobotecUserController {
   login(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.login(createRobotecUserDto);
   }
+
+  @Post('avtor')
+  avtor(@Body() createRobotecUserDto: CreateRobotecUserDto) {
+    return this.robotecUserService.avtor(createRobotecUserDto);
+  }
+
+  @Post('registershop')
+  shopname(@Body() createRobotecUserDto: CreateRobotecUserDto) {
+    return this.robotecUserService.shopname(createRobotecUserDto);
+  }
 }
