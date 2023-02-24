@@ -26,6 +26,17 @@ export class RobotecUserService {
     return {
       msg: 'user created',
       status: true,
+      data: query.records[0].get('m')['properties'],
+    };
+  }
+
+  async allUser(body: CreateRobotecUserDto): Promise<any> {
+    const query = await this.neo4jService.write(
+      `match (m:man{type: "User"}) return m`,
+    );
+    return {
+      msg: 'user found',
+      status: true,
     };
   }
 
