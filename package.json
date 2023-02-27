@@ -27,7 +27,8 @@
     "@nestjs/platform-express": "^9.0.0",
     "nest-neo4j": "^0.2.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "vercel": "^28.16.7"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
