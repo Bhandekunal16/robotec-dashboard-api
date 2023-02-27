@@ -15,6 +15,7 @@ import { RobotecUserModule } from './robotec-user/robotec-user.module';
     }),
     RobotecUserModule,
   ],
+  
   controllers: [AppController],
   providers: [AppService],
 })
