@@ -40,6 +40,11 @@ export class RobotecUserController {
     return this.robotecUserService.shopname(createRobotecUserDto);
   }
 
+  @Post('editProfile')
+  editProfile(@Body() createRobotecUserDto: CreateRobotecUserDto) {
+    return this.robotecUserService.editProfile(createRobotecUserDto);
+  }
+
   @Get('alluser')
   allUser(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.allUser(createRobotecUserDto);

@@ -60,6 +60,21 @@ set n.shopphoneNumberPrefix="${body.shopphoneNumberPrefix}"
     };
   }
 
+  async editProfile(body: CreateRobotecUserDto): Promise<any> {
+    const query = await this.neo4jService.write(
+      `MATCH (n:man {email: "${body.email}"})
+set n.userName="${body.userName}"
+set n.shopName="${body.shopName}"
+set n.phoneNumber="${body.phoneNumber}"
+set n.shopphoneNumberPrefix="${body.shopphoneNumberPrefix}"
+ return n`,
+    );
+    return {
+      msg: 'user created',
+      status: true,
+    };
+  }
+
   async avtor(body: CreateRobotecUserDto): Promise<any> {
     const query = await this.neo4jService.write(
       `match (m:man {email:"${body.email}"}) return m`,
