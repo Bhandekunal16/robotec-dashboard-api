@@ -48,7 +48,7 @@ export class RobotecUserService {
   async shopname(body: CreateRobotecUserDto): Promise<any> {
     const query = await this.neo4jService.write(
       `MATCH (n:man {email: "${body.email}"})
-set n.shopPhoneNumber="${body.shopPhoneNumber}"
+set n.shopPhoneNumber="${body.phoneNumber}"
 set n.shopName="${body.shopName}"
 set n.userName="${body.userName}"
 set n.shopphoneNumberPrefix="${body.shopphoneNumberPrefix}"
