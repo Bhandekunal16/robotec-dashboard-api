@@ -35,7 +35,7 @@ export class RobotecUserController {
     return this.robotecUserService.avtor(createRobotecUserDto);
   }
 
-  @Post('registershop')
+  @Patch('registershop')
   shopname(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.shopname(createRobotecUserDto);
   }
