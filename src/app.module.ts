@@ -6,22 +6,23 @@ import { RobotecUserModule } from './robotec-user/robotec-user.module';
 import { ProjectModule } from './project/project.module';
 import { InstaModule } from './insta/insta.module';
 import { YoutubeModule } from './youtube/youtube.module';
+import { environment } from './env/enverment';
 
 @Module({
   imports: [
     Neo4jModule.forRoot({
       scheme: 'neo4j+s',
-      host: 'b76e3d84.databases.neo4j.io',
-      port: 7687,
-      username: 'neo4j',
-      password: 'kH8WQkwu-vK5bmjUYjJ2oe1kbcBeoZdDeErj9o8woSk',
+      host: environment.host,
+      port: environment.port,
+      username: environment.username,
+      password: environment.password,
     }),
     RobotecUserModule,
     ProjectModule,
     InstaModule,
     YoutubeModule,
   ],
-  
+
   controllers: [AppController],
   providers: [AppService],
 })
