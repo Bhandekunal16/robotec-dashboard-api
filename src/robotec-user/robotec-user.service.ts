@@ -86,7 +86,7 @@ export class RobotecUserService {
       );
       if (query.records.length > 0) {
         return {
-          data: query,
+          data: query.records[0].get('n')['properties'],
           msg: 'user created',
           status: true,
         };
