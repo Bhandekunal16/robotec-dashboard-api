@@ -2,8 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { CreateRobotecUserDto } from './dto/create-robotec-user.dto';
 import { UpdateRobotecUserDto } from './dto/update-robotec-user.dto';
-
-const all = [];
+import { response } from 'src/constant/response';
 
 @Injectable()
 export class RobotecUserService {
@@ -16,11 +15,11 @@ export class RobotecUserService {
       if (query.records.length > 0) {
         return {
           data: query.records[0].get('m')['properties'],
-          msg: 'successfully created',
+          msg: response.SUCCESS,
           status: true,
         };
       } else {
-        return { data: null, msg: 'error while createing user', status: false };
+        return { data: null, msg: response.error, status: false };
       }
     } catch (error) {
       return error;
@@ -37,9 +36,9 @@ export class RobotecUserService {
         data.push(e.get('m').properties);
       });
       if (query.records.length > 0) {
-        return { data: data, status: true, msg: 'All User Found' };
+        return { data: data, status: true, msg: response.SUCCESS };
       } else {
-        return { data: null, status: false, msg: 'Did not Found anything' };
+        return { data: null, status: false, msg: response.error };
       }
     } catch (error) {
       return error;
@@ -58,13 +57,13 @@ export class RobotecUserService {
       );
       if (query.records.length > 0) {
         return {
-          msg: 'user created',
+          msg: response.SUCCESS,
           data: query.records[0].get('n')['properties'],
           status: true,
         };
       } else {
         return {
-          msg: 'error while creating',
+          msg: response.error,
           data: null,
           status: false,
         };
@@ -87,13 +86,13 @@ export class RobotecUserService {
       if (query.records.length > 0) {
         return {
           data: query.records[0].get('n')['properties'],
-          msg: 'user created',
+          msg: response.SUCCESS,
           status: true,
         };
       } else {
         return {
           data: null,
-          msg: 'error while creating user',
+          msg: response.error,
           status: false,
         };
       }
@@ -111,13 +110,13 @@ export class RobotecUserService {
         return {
           data: query.records[0].get('m')['properties'],
           status: true,
-          msg: 'user found',
+          msg: response.SUCCESS,
         };
       } else {
         return {
           data: null,
           status: false,
-          msg: 'user not found',
+          msg: response.error,
         };
       }
     } catch (error) {
@@ -133,14 +132,14 @@ export class RobotecUserService {
       if (query.records.length !== 0)
         return {
           status: true,
-          msg: 'user found',
+          msg: response.SUCCESS,
           data: query.records[0].get('m')['properties']['type'],
           body: query.records[0].get('m')['properties']['email'],
         };
       else
         return {
           status: false,
-          msg: 'user not found',
+          msg: response.error,
           data: null,
         };
     } catch (error) {
