@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { InstaService } from './insta.service';
 import { CreateInstaDto } from './dto/create-insta.dto';
 import { UpdateInstaDto } from './dto/update-insta.dto';
+import { instagram } from 'src/route/routes';
 
-@Controller('insta')
+@Controller(instagram.Controller)
 export class InstaController {
   constructor(private readonly instaService: InstaService) {}
 

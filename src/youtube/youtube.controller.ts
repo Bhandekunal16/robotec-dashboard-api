@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { YoutubeService } from './youtube.service';
 import { CreateYoutubeDto } from './dto/create-youtube.dto';
 import { UpdateYoutubeDto } from './dto/update-youtube.dto';
+import { youtube } from 'src/route/routes';
 
-@Controller('youtube')
+@Controller(youtube.Controller)
 export class YoutubeController {
   constructor(private readonly youtubeService: YoutubeService) {}
 
