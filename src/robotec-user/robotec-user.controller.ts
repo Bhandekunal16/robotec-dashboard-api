@@ -10,42 +10,38 @@ import {
 import { RobotecUserService } from './robotec-user.service';
 import { CreateRobotecUserDto } from './dto/create-robotec-user.dto';
 import { UpdateRobotecUserDto } from './dto/update-robotec-user.dto';
+import { user } from 'src/route/routes';
 
-@Controller('robotec-user')
+@Controller(user.Controller)
 export class RobotecUserController {
   constructor(private readonly robotecUserService: RobotecUserService) {}
 
-  // @Post()
-  // create(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-  //   return this.robotecUserService.create(createRobotecUserDto);
-  // }
-
-  @Post('test')
+  @Post(user.register)
   register(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.register(createRobotecUserDto);
   }
 
-  @Post('login')
+  @Post(user.Login)
   login(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.login(createRobotecUserDto);
   }
 
-  @Post('avtor')
+  @Post(user.Avtor)
   avtor(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.avtor(createRobotecUserDto);
   }
 
-  @Patch('registershop')
+  @Post(user.RegisterShop)
   shopname(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.shopname(createRobotecUserDto);
   }
 
-  @Post('editProfile')
+  @Patch(user.EditProfile)
   editProfile(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.editProfile(createRobotecUserDto);
   }
 
-  @Get('alluser')
+  @Get(user.GetAllUser)
   allUser(@Body() createRobotecUserDto: CreateRobotecUserDto) {
     return this.robotecUserService.allUser(createRobotecUserDto);
   }
