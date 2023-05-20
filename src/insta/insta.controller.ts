@@ -16,28 +16,33 @@ import { instagram } from 'src/route/routes';
 export class InstaController {
   constructor(private readonly instaService: InstaService) {}
 
-  @Post()
-  create(@Body() createInstaDto: CreateInstaDto) {
-    return this.instaService.create(createInstaDto);
+  @Post('createInsta')
+  createInsta(@Body() createInstaDto: CreateInstaDto) {
+    return this.instaService.createInsta(createInstaDto);
   }
 
-  @Get()
-  findAll() {
-    return this.instaService.findAll();
+  @Get('getAllinst')
+  getAllinst(@Body() createInstaDto: CreateInstaDto) {
+    return this.instaService.getAllinst(createInstaDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.instaService.findOne(+id);
+  @Post('getInsta')
+  getInsta(@Body() createInstaDto: CreateInstaDto) {
+    return this.instaService.getInsta(createInstaDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInstaDto: UpdateInstaDto) {
-    return this.instaService.update(+id, updateInstaDto);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.instaService.findOne(+id);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.instaService.remove(+id);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateInstaDto: UpdateInstaDto) {
+  //   return this.instaService.update(+id, updateInstaDto);
+  // }
+
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.instaService.remove(+id);
+  // }
 }
