@@ -26,6 +26,16 @@ export class InstaController {
     return this.instaService.getAllinst(createInstaDto);
   }
 
+  @Get('getFollower')
+  getFollower(@Body() createInstaDto: CreateInstaDto) {
+    return this.instaService.getFollower(createInstaDto);
+  }
+
+  @Get('getFollowing')
+  getFollowing(@Body() createInstaDto: CreateInstaDto) {
+    return this.instaService.getFollowing(createInstaDto);
+  }
+
   @Post('getInsta')
   getInsta(@Body() createInstaDto: CreateInstaDto) {
     return this.instaService.getInsta(createInstaDto);

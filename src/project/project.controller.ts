@@ -26,6 +26,11 @@ export class ProjectController {
     return this.projectService.getAllproject(createProjectDto);
   }
 
+  @Get('getCount')
+  getCount(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectService.getCount(createProjectDto);
+  }
+
   @Post('getproject')
   getproject(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.getproject(createProjectDto);

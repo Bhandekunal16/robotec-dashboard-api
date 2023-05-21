@@ -38,6 +38,24 @@ export class ProjectService {
     }
   }
 
+  async getCount(createProjectDto: CreateProjectDto) {
+    try {
+      const query = await this.neo4jService.read(
+        ` MATCH (n:project) return count(n)`,
+      );
+
+      return query.records.length > 0
+        ? {
+            data: query.records[0].get('count(n)').low,
+            status: true,
+            msg: response.SUCCESS,
+          }
+        : { data: null, status: false, msg: response.error };
+    } catch (error) {
+      return error;
+    }
+  }
+
   async getproject(body: CreateProjectDto) {
     try {
       const query = await this.neo4jService.read(

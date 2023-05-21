@@ -62,4 +62,38 @@ export class InstaService {
       return error;
     }
   }
+
+  async getFollowing(createInstaDto: CreateInstaDto) {
+    try {
+      const query = await this.neo4jService.read(
+        `MATCH (n:instagram {type: "following"}) RETURN count (n)`,
+      );
+      return query.records.length > 0
+        ? {
+            data: query.records[0].get('count (n)').low,
+            msg: response.SUCCESS,
+            status: true,
+          }
+        : { data: null, msg: response.error, status: false };
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getFollower(createInstaDto: CreateInstaDto) {
+    try {
+      const query = await this.neo4jService.read(
+        `MATCH (n:instagram {type: "follower"}) RETURN count (n)`,
+      );
+      return query.records.length > 0
+        ? {
+            data: query.records[0].get('count (n)').low,
+            msg: response.SUCCESS,
+            status: true,
+          }
+        : { data: null, msg: response.error, status: false };
+    } catch (error) {
+      return error;
+    }
+  }
 }

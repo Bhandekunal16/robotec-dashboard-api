@@ -4,6 +4,6 @@ import { RobotecUserController } from './robotec-user.controller';
 
 @Module({
   controllers: [RobotecUserController],
-  providers: [RobotecUserService]
+  providers: [RobotecUserService],
 })
 export class RobotecUserModule {}

@@ -4,6 +4,6 @@ import { InstaController } from './insta.controller';
 
 @Module({
   controllers: [InstaController],
-  providers: [InstaService]
+  providers: [InstaService],
 })
 export class InstaModule {}

@@ -16,28 +16,38 @@ import { youtube } from 'src/route/routes';
 export class YoutubeController {
   constructor(private readonly youtubeService: YoutubeService) {}
 
-  @Post()
-  create(@Body() createYoutubeDto: CreateYoutubeDto) {
-    return this.youtubeService.create(createYoutubeDto);
+  @Post('createYoutube')
+  createYoutube(@Body() createYoutubeDto: CreateYoutubeDto) {
+    return this.youtubeService.createYoutube(createYoutubeDto);
   }
 
-  @Get()
-  findAll() {
-    return this.youtubeService.findAll();
+  @Get('getCount1')
+  getCount1(createYoutubeDto: CreateYoutubeDto) {
+    return this.youtubeService.getCount1(createYoutubeDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.youtubeService.findOne(+id);
+  @Get('getAllYoutube')
+  youtube(createYoutubeDto: CreateYoutubeDto) {
+    return this.youtubeService.getAllYoutube(createYoutubeDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateYoutubeDto: UpdateYoutubeDto) {
-    return this.youtubeService.update(+id, updateYoutubeDto);
+  @Post('getYoutube')
+  getYoutube(@Body() createYoutubeDto: CreateYoutubeDto) {
+    return this.youtubeService.getYoutube(createYoutubeDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.youtubeService.remove(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.youtubeService.findOne(+id);
+  // }
+
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateYoutubeDto: UpdateYoutubeDto) {
+  //   return this.youtubeService.update(+id, updateYoutubeDto);
+  // }
+
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.youtubeService.remove(+id);
+  // }
 }
