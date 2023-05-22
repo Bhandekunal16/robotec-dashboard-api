@@ -9,12 +9,25 @@ export const user = {
 };
 export const youtube = {
   Controller: 'youtube',
+  CreateYoutube: 'createYoutube',
+  getCount: 'getCount1',
+  getAll: 'getAllYoutube',
+  get: 'getYoutube',
 };
 
 export const project = {
   Controller: 'project',
+  AddProject: 'addproject',
+  GetAllProject: 'getallproject',
+  getCount: 'getCount',
+  getProject: 'getproject',
 };
 
 export const instagram = {
   Controller: 'insta',
+  createInsta: 'createInsta',
+  getAll: 'getAllinst',
+  getFollower: 'getFollower',
+  getFollwing: 'getFollowing',
+  getInsta: 'getInsta',
 };

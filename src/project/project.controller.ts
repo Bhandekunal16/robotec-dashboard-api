@@ -16,22 +16,22 @@ import { project } from 'src/route/routes';
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
-  @Post('addproject')
+  @Post(project.AddProject)
   createProject(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.createProject(createProjectDto);
   }
 
-  @Get('getallproject')
+  @Get(project.GetAllProject)
   getAllproject(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.getAllproject(createProjectDto);
   }
 
-  @Get('getCount')
+  @Get(project.getCount)
   getCount(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.getCount(createProjectDto);
   }
 
-  @Post('getproject')
+  @Post(project.getProject)
   getproject(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.getproject(createProjectDto);
   }

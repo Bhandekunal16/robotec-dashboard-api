@@ -16,22 +16,22 @@ import { youtube } from 'src/route/routes';
 export class YoutubeController {
   constructor(private readonly youtubeService: YoutubeService) {}
 
-  @Post('createYoutube')
+  @Post(youtube.CreateYoutube)
   createYoutube(@Body() createYoutubeDto: CreateYoutubeDto) {
     return this.youtubeService.createYoutube(createYoutubeDto);
   }
 
-  @Get('getCount1')
+  @Get(youtube.getCount)
   getCount1(createYoutubeDto: CreateYoutubeDto) {
     return this.youtubeService.getCount1(createYoutubeDto);
   }
 
-  @Get('getAllYoutube')
+  @Get(youtube.getAll)
   youtube(createYoutubeDto: CreateYoutubeDto) {
     return this.youtubeService.getAllYoutube(createYoutubeDto);
   }
 
-  @Post('getYoutube')
+  @Post(youtube.get)
   getYoutube(@Body() createYoutubeDto: CreateYoutubeDto) {
     return this.youtubeService.getYoutube(createYoutubeDto);
   }

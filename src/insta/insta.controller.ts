@@ -16,27 +16,27 @@ import { instagram } from 'src/route/routes';
 export class InstaController {
   constructor(private readonly instaService: InstaService) {}
 
-  @Post('createInsta')
+  @Post(instagram.createInsta)
   createInsta(@Body() createInstaDto: CreateInstaDto) {
     return this.instaService.createInsta(createInstaDto);
   }
 
-  @Get('getAllinst')
+  @Get(instagram.getAll)
   getAllinst(@Body() createInstaDto: CreateInstaDto) {
     return this.instaService.getAllinst(createInstaDto);
   }
 
-  @Get('getFollower')
+  @Get(instagram.getFollower)
   getFollower(@Body() createInstaDto: CreateInstaDto) {
     return this.instaService.getFollower(createInstaDto);
   }
 
-  @Get('getFollowing')
+  @Get(instagram.getFollwing)
   getFollowing(@Body() createInstaDto: CreateInstaDto) {
     return this.instaService.getFollowing(createInstaDto);
   }
 
-  @Post('getInsta')
+  @Post(instagram.getInsta)
   getInsta(@Body() createInstaDto: CreateInstaDto) {
     return this.instaService.getInsta(createInstaDto);
   }
