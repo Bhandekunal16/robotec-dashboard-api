@@ -3,6 +3,7 @@ import { CreateInstaDto } from './dto/create-insta.dto';
 import { UpdateInstaDto } from './dto/update-insta.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
+import { GetFollowingCount, GetInstagram } from '../query/query';
 
 @Injectable()
 export class InstaService {
@@ -29,9 +30,7 @@ export class InstaService {
 
   async getAllinst(data: CreateInstaDto) {
     try {
-      const query = await this.neo4jService.read(
-        `match (i:instagram) return i`,
-      );
+      const query = await this.neo4jService.read(GetInstagram());
       let application = query.records.map((query) => query.get('i').properties);
       return application.length > 0
         ? {
@@ -65,9 +64,7 @@ export class InstaService {
 
   async getFollowing(createInstaDto: CreateInstaDto) {
     try {
-      const query = await this.neo4jService.read(
-        `MATCH (n:instagram {type: "following"}) RETURN count (n)`,
-      );
+      const query = await this.neo4jService.read(GetFollowingCount());
       return query.records.length > 0
         ? {
             data: query.records[0].get('count (n)').low,
