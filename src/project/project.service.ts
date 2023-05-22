@@ -3,6 +3,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
+import { GetProject, GetProjectCount } from 'src/query/query';
 
 @Injectable()
 export class ProjectService {
@@ -28,7 +29,7 @@ export class ProjectService {
 
   async getAllproject(createProjectDto: CreateProjectDto) {
     try {
-      const query = await this.neo4jService.read(`match (p:project) return p`);
+      const query = await this.neo4jService.read(GetProject());
       let application = query.records.map((query) => query.get('p').properties);
       return application.length > 0
         ? { data: application, status: true, msg: response.SUCCESS }
@@ -40,10 +41,7 @@ export class ProjectService {
 
   async getCount(createProjectDto: CreateProjectDto) {
     try {
-      const query = await this.neo4jService.read(
-        ` MATCH (n:project) return count(n)`,
-      );
-
+      const query = await this.neo4jService.read(GetProjectCount());
       return query.records.length > 0
         ? {
             data: query.records[0].get('count(n)').low,
