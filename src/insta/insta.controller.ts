@@ -40,19 +40,4 @@ export class InstaController {
   getInsta(@Body() createInstaDto: CreateInstaDto) {
     return this.instaService.getInsta(createInstaDto);
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.instaService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateInstaDto: UpdateInstaDto) {
-  //   return this.instaService.update(+id, updateInstaDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.instaService.remove(+id);
-  // }
 }
