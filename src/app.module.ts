@@ -7,6 +7,7 @@ import { ProjectModule } from './project/project.module';
 import { InstaModule } from './insta/insta.module';
 import { YoutubeModule } from './youtube/youtube.module';
 import { environment } from './env/enverment';
+import { CommonService } from './common/common.service';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { environment } from './env/enverment';
   ],
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CommonService],
 })
 export class AppModule {}

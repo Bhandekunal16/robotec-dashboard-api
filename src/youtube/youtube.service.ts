@@ -4,10 +4,11 @@ import { UpdateYoutubeDto } from './dto/update-youtube.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
 import { GetYoutube, GetYoutubeVedioCount } from 'src/query/query';
+import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class YoutubeService {
-  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService) {}
+  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService, private common: CommonService) {}
 
   async createYoutube(body: CreateYoutubeDto) {
     try {
@@ -30,11 +31,8 @@ export class YoutubeService {
 
   async getAllYoutube(body: CreateYoutubeDto) {
     try {
-      const query = await this.neo4jService.read(GetYoutube());
-      let application = query.records.map((query) => query.get('p').properties);
-      return application.length > 0
-        ? { data: application, status: true, msg: response.SUCCESS }
-        : { data: null, status: false, msg: response.error };
+      const query = await this.common.matchNode(body)
+      return query
     } catch (error) {
       return error;
     }

@@ -1,5 +1,5 @@
 export const environment = {
-  serverPort: 3000,
+  serverPort: 3001,
   scheme: 'neo4j+s',
   host: 'b76e3d84.databases.neo4j.io',
   port: 7687,
