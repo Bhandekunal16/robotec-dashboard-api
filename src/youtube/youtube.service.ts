@@ -31,7 +31,7 @@ export class YoutubeService {
 
   async getAllYoutube(body: CreateYoutubeDto) {
     try {
-      const query = await this.common.matchNode(body)
+      const query = await this.common.matchNodeProperty('youtube','type','vedio')
       return query
     } catch (error) {
       return error;
@@ -40,17 +40,8 @@ export class YoutubeService {
 
   async getYoutube(body: CreateYoutubeDto) {
     try {
-      const query = await this.neo4jService.read(
-        `match (p:youtube {name:"${body.name}"}) return p`,
-      );
-
-      return query.records.length > 0
-        ? {
-            data: query.records[0].get('p')['properties'],
-            status: true,
-            msg: response.SUCCESS,
-          }
-        : { data: null, status: false, msg: response.error };
+      const query = await this.common.matchNodeProperty('youtube','type',body.name)
+      return query
     } catch (error) {
       return error;
     }

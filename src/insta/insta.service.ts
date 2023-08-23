@@ -8,10 +8,11 @@ import {
   GetFollowingCount,
   GetInstagram,
 } from '../query/query';
+import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class InstaService {
-  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService) {}
+  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService, private common: CommonService) {}
 
   async createInsta(data: CreateInstaDto) {
     try {
@@ -34,15 +35,8 @@ export class InstaService {
 
   async getAllinst(data: CreateInstaDto) {
     try {
-      const query = await this.neo4jService.read(GetInstagram());
-      let application = query.records.map((query) => query.get('i').properties);
-      return application.length > 0
-        ? {
-            data: application,
-            msg: response.SUCCESS,
-            status: true,
-          }
-        : { data: null, msg: response.error, status: false };
+      const query = await this.common.matchNode('instagram')
+      return query
     } catch (error) {
       return error;
     }
@@ -50,17 +44,8 @@ export class InstaService {
 
   async getInsta(data: CreateInstaDto) {
     try {
-      const query = await this.neo4jService.read(
-        `match (i:instagram {userName:"${data.userName}"}) return i`,
-      );
-      let application = query.records.map((query) => query.get('i').properties);
-      return application.length > 0
-        ? {
-            data: application,
-            msg: response.SUCCESS,
-            status: true,
-          }
-        : { data: null, msg: response.error, status: false };
+     const query = await this.common.matchNodeProperty('instagram','userName',data.userName)
+     return query
     } catch (error) {
       return error;
     }
@@ -68,14 +53,8 @@ export class InstaService {
 
   async getFollowing(createInstaDto: CreateInstaDto) {
     try {
-      const query = await this.neo4jService.read(GetFollowingCount());
-      return query.records.length > 0
-        ? {
-            data: query.records[0].get('count (n)').low,
-            msg: response.SUCCESS,
-            status: true,
-          }
-        : { data: null, msg: response.error, status: false };
+      const query = await this.common.count('instagram','type','following')
+      return query
     } catch (error) {
       return error;
     }
@@ -83,14 +62,8 @@ export class InstaService {
 
   async getFollower(createInstaDto: CreateInstaDto) {
     try {
-      const query = await this.neo4jService.read(GetFollowerCount());
-      return query.records.length > 0
-        ? {
-            data: query.records[0].get('count (n)').low,
-            msg: response.SUCCESS,
-            status: true,
-          }
-        : { data: null, msg: response.error, status: false };
+      const query = await this.common.count('instagram','type','follower')
+      return query
     } catch (error) {
       return error;
     }

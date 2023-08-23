@@ -4,10 +4,11 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
 import { GetProject, GetProjectCount } from 'src/query/query';
+import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class ProjectService {
-  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService) {}
+  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService, private common: CommonService) {}
   async createProject(body: CreateProjectDto) {
     try {
       const query = await this.neo4jService.write(
@@ -29,11 +30,8 @@ export class ProjectService {
 
   async getAllproject(createProjectDto: CreateProjectDto) {
     try {
-      const query = await this.neo4jService.read(GetProject());
-      let application = query.records.map((query) => query.get('p').properties);
-      return application.length > 0
-        ? { data: application, status: true, msg: response.SUCCESS }
-        : { data: null, status: false, msg: response.error };
+      const query = await this.common.matchNode('project')
+      return query
     } catch (error) {
       return error;
     }
@@ -41,14 +39,8 @@ export class ProjectService {
 
   async getCount(createProjectDto: CreateProjectDto) {
     try {
-      const query = await this.neo4jService.read(GetProjectCount());
-      return query.records.length > 0
-        ? {
-            data: query.records[0].get('count(n)').low,
-            status: true,
-            msg: response.SUCCESS,
-          }
-        : { data: null, status: false, msg: response.error };
+      const query = await this.common.count('youtube','type','vedio')
+      return query
     } catch (error) {
       return error;
     }
@@ -56,17 +48,8 @@ export class ProjectService {
 
   async getproject(body: CreateProjectDto) {
     try {
-      const query = await this.neo4jService.read(
-        `match (p:project {projectName:"${body.projectName}"}) return p`,
-      );
-
-      return query.records.length > 0
-        ? {
-            data: query.records[0].get('p')['properties'],
-            status: true,
-            msg: response.SUCCESS,
-          }
-        : { data: null, status: false, msg: response.error };
+      const query = await this.common.matchNodeProperty('project','projectName',body.projectName)
+      return query
     } catch (error) {
       return error;
     }
