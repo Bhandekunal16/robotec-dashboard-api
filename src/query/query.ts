@@ -19,7 +19,7 @@ export const GetProjectCount = (): string => {
 };
 
 export const GetYoutube = (): string => {
-  return `match (p:youtube) return p`;
+  return `match (p:youtube {type:"vedio"}) return p`;
 };
 
 export const GetYoutubeVedioCount = (): string => {
