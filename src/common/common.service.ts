@@ -52,4 +52,25 @@ export class CommonService {
       return error;
     }
   }
+
+  async count2(node: any) {
+    try {
+      const Query = await this.neo.read(`match (n:${node}) return count(n)`);
+      Logger.verbose(Query.records.length);
+      return Query.records.length > 0
+        ? {
+            data: Query.records[0].get('count(n)').low,
+            status: true,
+            msg: 'success',
+          }
+        : {
+            data: null,
+            status: false,
+            msg: 'Failed',
+          };
+    } catch (error) {
+      Logger.error(error);
+      return error;
+    }
+  }
 }

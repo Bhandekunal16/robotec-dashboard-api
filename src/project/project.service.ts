@@ -39,7 +39,7 @@ export class ProjectService {
 
   async getCount(createProjectDto: CreateProjectDto) {
     try {
-      const query = await this.common.count('youtube','type','vedio')
+      const query = await this.common.count2('project')
       return query
     } catch (error) {
       return error;
