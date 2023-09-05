@@ -16,6 +16,6 @@ export class AppController {
 
   @Post('get/ButtonUI')
   getButton(@Body() body: any) {
-    return this.button.ButtonUiResponsive(body.data);
+    return this.button.ButtonUiResponsive(body);
   }
 }
