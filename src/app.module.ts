@@ -8,6 +8,7 @@ import { InstaModule } from './insta/insta.module';
 import { YoutubeModule } from './youtube/youtube.module';
 import { environment } from './env/enverment';
 import { CommonService } from './common/common.service';
+import { ButtonService } from './button/button.service';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { CommonService } from './common/common.service';
   ],
 
   controllers: [AppController],
-  providers: [AppService, CommonService],
+  providers: [AppService, CommonService, ButtonService],
 })
 export class AppModule {}
