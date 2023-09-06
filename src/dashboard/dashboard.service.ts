@@ -100,7 +100,7 @@ export class DashboardService {
         src="https://theme-pr6a747xx-bhandekunal16.vercel.app/"
         style="color: skyblue, padding: 5px 5px"
       >
-        Robotic<span style=" color: blueviolet" >'s</span>
+        Robotic
       </a>
     </div>
 </body>
