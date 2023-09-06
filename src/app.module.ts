@@ -9,6 +9,7 @@ import { YoutubeModule } from './youtube/youtube.module';
 import { environment } from './env/enverment';
 import { CommonService } from './common/common.service';
 import { ButtonService } from './button/button.service';
+import { DashboardService } from './dashboard/dashboard.service';
 
 @Module({
   imports: [
@@ -26,6 +27,6 @@ import { ButtonService } from './button/button.service';
   ],
 
   controllers: [AppController],
-  providers: [AppService, CommonService, ButtonService],
+  providers: [AppService, CommonService, ButtonService, DashboardService],
 })
 export class AppModule {}
