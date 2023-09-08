@@ -26,7 +26,7 @@ export class ProjectService {
     }
   }
 
-  async getAllproject(createProjectDto: CreateProjectDto) {
+  async getAllProject(createProjectDto: CreateProjectDto) {
     try {
       const query = await this.common.matchNode('project')
       return query
@@ -44,7 +44,7 @@ export class ProjectService {
     }
   }
 
-  async getproject(body: CreateProjectDto) {
+  async getProject(body: CreateProjectDto) {
     try {
       const query = await this.common.matchNodeProperty('project','projectName',body.projectName)
       return query

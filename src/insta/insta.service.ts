@@ -3,11 +3,6 @@ import { CreateInstaDto } from './dto/create-insta.dto';
 import { UpdateInstaDto } from './dto/update-insta.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
-import {
-  GetFollowerCount,
-  GetFollowingCount,
-  GetInstagram,
-} from '../query/query';
 import { CommonService } from 'src/common/common.service';
 
 @Injectable()
@@ -33,7 +28,7 @@ export class InstaService {
     }
   }
 
-  async getAllinst(data: CreateInstaDto) {
+  async getAllInst(data: CreateInstaDto) {
     try {
       const query = await this.common.matchNode('instagram')
       return query

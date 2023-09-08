@@ -28,6 +28,6 @@ export const instagram = {
   createInsta: 'createInsta',
   getAll: 'getAllinst',
   getFollower: 'getFollower',
-  getFollwing: 'getFollowing',
+  getFollowing: 'getFollowing',
   getInsta: 'getInsta',
 };

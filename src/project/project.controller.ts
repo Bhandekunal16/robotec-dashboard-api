@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
 import { project } from 'src/routes/routes';
 
 @Controller(project.Controller)
@@ -22,8 +13,8 @@ export class ProjectController {
   }
 
   @Get(project.GetAllProject)
-  getAllproject(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectService.getAllproject(createProjectDto);
+  getAllProject(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectService.getAllProject(createProjectDto);
   }
 
   @Get(project.getCount)
@@ -32,26 +23,7 @@ export class ProjectController {
   }
 
   @Post(project.getProject)
-  getproject(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectService.getproject(createProjectDto);
+  getProject(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectService.getProject(createProjectDto);
   }
-  // @Get()
-  // findAll() {
-  //   return this.projectService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.projectService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
-  //   return this.projectService.update(+id, updateProjectDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.projectService.remove(+id);
-  // }
 }

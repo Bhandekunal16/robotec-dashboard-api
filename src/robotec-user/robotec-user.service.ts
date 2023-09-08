@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { CreateRobotecUserDto } from './dto/create-robotec-user.dto';
-import { UpdateRobotecUserDto } from './dto/update-robotec-user.dto';
 import { response } from 'src/constant/response';
 
 @Injectable()
