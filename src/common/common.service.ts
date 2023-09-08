@@ -32,9 +32,11 @@ export class CommonService {
     }
   }
 
-  async count(node: any,property: any, value: any) {
+  async count(node: any, property: any, value: any) {
     try {
-      const Query = await this.neo.read(`match (n:${node} {${property} : "${value}"}) return count(n)`);
+      const Query = await this.neo.read(
+        `match (n:${node} {${property} : "${value}"}) return count(n)`,
+      );
       Logger.verbose(Query.records.length);
       return Query.records.length > 0
         ? {

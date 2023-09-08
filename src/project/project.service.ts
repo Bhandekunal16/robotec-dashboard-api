@@ -6,7 +6,10 @@ import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class ProjectService {
-  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService, private common: CommonService) {}
+  constructor(
+    @Inject(Neo4jService) private neo4jService: Neo4jService,
+    private common: CommonService,
+  ) {}
   async createProject(body: CreateProjectDto) {
     try {
       const query = await this.neo4jService.write(
@@ -28,8 +31,8 @@ export class ProjectService {
 
   async getAllProject(createProjectDto: CreateProjectDto) {
     try {
-      const query = await this.common.matchNode('project')
-      return query
+      const query = await this.common.matchNode('project');
+      return query;
     } catch (error) {
       return error;
     }
@@ -37,8 +40,8 @@ export class ProjectService {
 
   async getCount(createProjectDto: CreateProjectDto) {
     try {
-      const query = await this.common.count2('project')
-      return query
+      const query = await this.common.count2('project');
+      return query;
     } catch (error) {
       return error;
     }
@@ -46,8 +49,12 @@ export class ProjectService {
 
   async getProject(body: CreateProjectDto) {
     try {
-      const query = await this.common.matchNodeProperty('project','projectName',body.projectName)
-      return query
+      const query = await this.common.matchNodeProperty(
+        'project',
+        'projectName',
+        body.projectName,
+      );
+      return query;
     } catch (error) {
       return error;
     }

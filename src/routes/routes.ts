@@ -2,7 +2,7 @@ export const user = {
   Controller: 'robotec-user',
   register: 'test',
   Login: 'login',
-  Avtor: 'avtor',
+  avatar: 'avtor',
   RegisterShop: 'registershop',
   EditProfile: 'editProfile',
   GetAllUser: 'alluser',

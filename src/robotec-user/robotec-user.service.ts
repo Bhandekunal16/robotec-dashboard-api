@@ -27,7 +27,7 @@ export class RobotecUserService {
 
   async allUser(body: CreateRobotecUserDto) {
     try {
-      let data = [];
+      const data = [];
       const query = await this.neo4jService.write(
         `match (m:man{type: "User"}) return m`,
       );
@@ -44,7 +44,7 @@ export class RobotecUserService {
     }
   }
 
-  async shopname(body: CreateRobotecUserDto) {
+  async shopName(body: CreateRobotecUserDto) {
     try {
       const query = await this.neo4jService.write(
         `MATCH (n:man {email: "${body.email}"})
@@ -100,7 +100,7 @@ export class RobotecUserService {
     }
   }
 
-  async avtor(body: CreateRobotecUserDto) {
+  async avatar(body: CreateRobotecUserDto) {
     try {
       const query = await this.neo4jService.write(
         `match (m:man {email:"${body.email}"}) return m`,

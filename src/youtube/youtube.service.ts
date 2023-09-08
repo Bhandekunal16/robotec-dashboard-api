@@ -3,7 +3,7 @@ import { CreateYoutubeDto } from './dto/create-youtube.dto';
 import { UpdateYoutubeDto } from './dto/update-youtube.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
-import { GetYoutube, GetYoutubeVedioCount } from 'src/query/query';
+
 import { CommonService } from 'src/common/common.service';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class YoutubeService {
 
   async getCount1(createProjectDto: CreateYoutubeDto) {
     try {
-      const query = await this.neo4jService.read(GetYoutubeVedioCount());
+      const query = await this.common.count2(`youtube`);
 
       return query.records.length > 0
         ? {

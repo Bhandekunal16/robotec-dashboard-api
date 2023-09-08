@@ -7,7 +7,10 @@ import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class InstaService {
-  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService, private common: CommonService) {}
+  constructor(
+    @Inject(Neo4jService) private neo4jService: Neo4jService,
+    private common: CommonService,
+  ) {}
 
   async createInsta(data: CreateInstaDto) {
     try {
@@ -30,8 +33,8 @@ export class InstaService {
 
   async getAllInst(data: CreateInstaDto) {
     try {
-      const query = await this.common.matchNode('instagram')
-      return query
+      const query = await this.common.matchNode('instagram');
+      return query;
     } catch (error) {
       return error;
     }
@@ -39,8 +42,12 @@ export class InstaService {
 
   async getInsta(data: CreateInstaDto) {
     try {
-     const query = await this.common.matchNodeProperty('instagram','userName',data.userName)
-     return query
+      const query = await this.common.matchNodeProperty(
+        'instagram',
+        'userName',
+        data.userName,
+      );
+      return query;
     } catch (error) {
       return error;
     }
@@ -48,8 +55,8 @@ export class InstaService {
 
   async getFollowing(createInstaDto: CreateInstaDto) {
     try {
-      const query = await this.common.count('instagram','type','following')
-      return query
+      const query = await this.common.count('instagram', 'type', 'following');
+      return query;
     } catch (error) {
       return error;
     }
@@ -57,8 +64,8 @@ export class InstaService {
 
   async getFollower(createInstaDto: CreateInstaDto) {
     try {
-      const query = await this.common.count('instagram','type','follower')
-      return query
+      const query = await this.common.count('instagram', 'type', 'follower');
+      return query;
     } catch (error) {
       return error;
     }

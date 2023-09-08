@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
 import { RobotecUserService } from './robotec-user.service';
 import { CreateRobotecUserDto } from './dto/create-robotec-user.dto';
-import { UpdateRobotecUserDto } from './dto/update-robotec-user.dto';
 import { user } from 'src/routes/routes';
 
 @Controller(user.Controller)
@@ -26,14 +17,14 @@ export class RobotecUserController {
     return this.robotecUserService.login(createRobotecUserDto);
   }
 
-  @Post(user.Avtor)
-  avtor(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return this.robotecUserService.avtor(createRobotecUserDto);
+  @Post(user.avatar)
+  avatar(@Body() createRobotecUserDto: CreateRobotecUserDto) {
+    return this.robotecUserService.avatar(createRobotecUserDto);
   }
 
   @Post(user.RegisterShop)
-  shopname(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return this.robotecUserService.shopname(createRobotecUserDto);
+  shopName(@Body() createRobotecUserDto: CreateRobotecUserDto) {
+    return this.robotecUserService.shopName(createRobotecUserDto);
   }
 
   @Patch(user.EditProfile)
