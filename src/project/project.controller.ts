@@ -10,7 +10,7 @@ import {
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { project } from 'src/route/routes';
+import { project } from 'src/routes/routes';
 
 @Controller(project.Controller)
 export class ProjectController {

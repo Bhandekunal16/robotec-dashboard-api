@@ -10,7 +10,7 @@ import {
 import { YoutubeService } from './youtube.service';
 import { CreateYoutubeDto } from './dto/create-youtube.dto';
 import { UpdateYoutubeDto } from './dto/update-youtube.dto';
-import { youtube } from 'src/route/routes';
+import { youtube } from 'src/routes/routes';
 
 @Controller(youtube.Controller)
 export class YoutubeController {
@@ -36,18 +36,4 @@ export class YoutubeController {
     return this.youtubeService.getYoutube(createYoutubeDto);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.youtubeService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateYoutubeDto: UpdateYoutubeDto) {
-  //   return this.youtubeService.update(+id, updateYoutubeDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.youtubeService.remove(+id);
-  // }
 }

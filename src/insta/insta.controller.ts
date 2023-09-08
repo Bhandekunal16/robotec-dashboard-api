@@ -10,7 +10,7 @@ import {
 import { InstaService } from './insta.service';
 import { CreateInstaDto } from './dto/create-insta.dto';
 import { UpdateInstaDto } from './dto/update-insta.dto';
-import { instagram } from 'src/route/routes';
+import { instagram } from 'src/routes/routes';
 
 @Controller(instagram.Controller)
 export class InstaController {

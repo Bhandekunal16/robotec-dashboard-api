@@ -10,7 +10,7 @@ import {
 import { RobotecUserService } from './robotec-user.service';
 import { CreateRobotecUserDto } from './dto/create-robotec-user.dto';
 import { UpdateRobotecUserDto } from './dto/update-robotec-user.dto';
-import { user } from 'src/route/routes';
+import { user } from 'src/routes/routes';
 
 @Controller(user.Controller)
 export class RobotecUserController {

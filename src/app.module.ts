@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { Neo4jModule } from 'nest-neo4j/dist';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,15 +10,20 @@ import { environment } from './env/enverment';
 import { CommonService } from './common/common.service';
 import { ButtonService } from './button/button.service';
 import { DashboardService } from './dashboard/dashboard.service';
+require('dotenv').config();
+
+Logger.log('neo4j PORT :' + process.env.PORT, 'appModule');
+Logger.log('neo4j HOST :' + process.env.HOST, 'appModule');
+Logger.log('neo4j User Name :' + environment.username, 'appModule');
 
 @Module({
   imports: [
     Neo4jModule.forRoot({
       scheme: 'neo4j+s',
-      host: environment.host,
-      port: environment.port,
+      host: process.env.HOST,
+      port: process.env.PORT,
       username: environment.username,
-      password: environment.password,
+      password: process.env.PASSWORD,
     }),
     RobotecUserModule,
     ProjectModule,

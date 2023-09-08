@@ -9,7 +9,7 @@ export class DashboardService {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>${body.title}</title>
     <style>
         /* Reset some default styles */
         body, h1, p {
@@ -76,32 +76,23 @@ export class DashboardService {
             width: 100%;
             position: fixed;
             bottom: 0;
+            text-align: center;
           }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Welcome to Our Website</h1>
+        <h1>Welcome to ${body.title}</h1>
         <p>Discover Amazing Content and Services</p>
     </div>
     <div class="main-content">
         <h2>Our Services</h2>
-        <ul>
-            <li>Web Development</li>
-            <li>Graphic Design</li>
-            <li>Digital Marketing</li>
-            <li>Content Creation</li>
-        </ul>
+        ${body.content}
         <h2>Contact Us</h2>
-        <p>If you have any questions or inquiries, feel free to <a href="contact.html">contact us</a>.</p>
+        <p>If you have any questions or inquiries, feel free to <a href="${body.contentPageLink}">contact us</a>.</p>
     </div>
     <div class="footerContent">
-      <a
-        src="https://theme-pr6a747xx-bhandekunal16.vercel.app/"
-        style="color: skyblue, padding: 5px 5px"
-      >
-        Robotic
-      </a>
+      <p>${body.footer}</p>
     </div>
 </body>
 </html>

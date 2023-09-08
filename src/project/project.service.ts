@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
-import { GetProject, GetProjectCount } from 'src/query/query';
 import { CommonService } from 'src/common/common.service';
 
 @Injectable()

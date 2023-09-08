@@ -16,7 +16,7 @@ export class AppController {
     return this.button.ButtonUi();
   }
 
-  @Get('get/dashboard')
+  @Post('get/dashboard')
   createDashboard(@Body() body: any) {
     return this.dashboard.createDashboard(body);
   }
