@@ -10,6 +10,7 @@ import { environment } from './env/enverment';
 import { CommonService } from './common/common.service';
 import { ButtonService } from './button/button.service';
 import { DashboardService } from './dashboard/dashboard.service';
+import { MessageModule } from './message/message.module';
 require('dotenv').config();
 
 Logger.log('neo4j PORT :' + process.env.PORT, 'appModule');
@@ -29,6 +30,7 @@ Logger.log('neo4j User Name :' + environment.username, 'appModule');
     ProjectModule,
     InstaModule,
     YoutubeModule,
+    MessageModule,
   ],
 
   controllers: [AppController],
