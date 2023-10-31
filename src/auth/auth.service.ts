@@ -51,6 +51,33 @@ export class AuthService {
         : { data: null, status: false, msg: 'false' };
     } catch (error) {
       console.log(error);
+     
+      return { res: error, status: false, msg: response.error };
+    }
+  }
+
+  async AddTask(body: any) {
+    try {
+      const query = await this.neo4jService.write(
+        `match (u: user {email: $email})
+        merge (u)-[:has_task]->(t:task {name: $name, type: $type, date: $date})
+        return t`,
+        {
+          email: body.data.email,
+          name: body.data.name,
+          type: body.data.type,
+          date: new Date().getDay(),
+        },
+      );
+      return query.records.length > 0
+        ? {
+            data: query.records[0].get('t')['properties'],
+            status: true,
+            msg: response.SUCCESS,
+          }
+        : { data: null, status: false, msg: 'false' };
+    } catch (error) {
+      console.log(error);
       return { res: error, status: false, msg: response.error };
     }
   }

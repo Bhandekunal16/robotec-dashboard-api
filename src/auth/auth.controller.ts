@@ -24,4 +24,9 @@ export class AuthController {
   async login(@Body() body: any) {
     return await this.authService.login(body);
   }
+
+  @Post('task/add')
+  async addTask(@Body() body: any) {
+    return await this.authService.AddTask(body);
+  }
 }
