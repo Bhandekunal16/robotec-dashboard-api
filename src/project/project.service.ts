@@ -102,7 +102,7 @@ export class ProjectService {
     }
   }
 
-  async getCount(createProjectDto: CreateProjectDto) {
+  async getCount() {
     try {
       const query = await this.common.count2('project');
       return query;

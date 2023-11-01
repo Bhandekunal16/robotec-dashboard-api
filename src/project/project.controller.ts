@@ -12,27 +12,27 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Post(project.AddProject)
-  createProject(@Body() body: CreateProjectDto) {
-    return this.projectService.createProject(body);
+  async createProject(@Body() body: CreateProjectDto) {
+    return await this.projectService.createProject(body);
   }
 
   @Post('edit')
-  EditProject(@Body() body: editProject) {
-    return this.projectService.editProject(body);
+  async EditProject(@Body() body: editProject) {
+    return await this.projectService.editProject(body);
   }
 
   @Post('delete')
-  deleteProject(@Body() body: deleteProject) {
-    return this.projectService.deleteProject(body);
+  async deleteProject(@Body() body: deleteProject) {
+    return await this.projectService.deleteProject(body);
   }
 
   @Get('getallproject/:email')
-  getProjectById(@Param('email') email: getAllProject) {
-    return this.projectService.getAllProject(email);
+  async getProjectById(@Param('email') email: getAllProject) {
+    return await this.projectService.getAllProject(email);
   }
 
   @Post(project.getProject)
-  getProject(@Body() body: getProject) {
-    return this.projectService.getProject(body);
+  async getProject(@Body() body: getProject) {
+    return await this.projectService.getProject(body);
   }
 }

@@ -2,33 +2,34 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { InstaService } from './insta.service';
 import { CreateInstaDto } from './dto/create-insta.dto';
 import { instagram } from 'src/routes/routes';
+import { GetInsta } from './dto/get-insta.dto';
 
 @Controller(instagram.Controller)
 export class InstaController {
   constructor(private readonly instaService: InstaService) {}
 
   @Post(instagram.createInsta)
-  createInsta(@Body() createInstaDto: CreateInstaDto) {
-    return this.instaService.createInsta(createInstaDto);
+  async createInsta(@Body() createInstaDto: CreateInstaDto) {
+    return await this.instaService.createInsta(createInstaDto);
   }
 
   @Get(instagram.getAll)
-  getAllInst(@Body() createInstaDto: CreateInstaDto) {
-    return this.instaService.getAllInst(createInstaDto);
+  async getAllInst() {
+    return await this.instaService.getAllInst();
   }
 
   @Get(instagram.getFollower)
-  getFollower(@Body() createInstaDto: CreateInstaDto) {
-    return this.instaService.getFollower(createInstaDto);
+  async getFollower() {
+    return await this.instaService.getFollower();
   }
 
   @Get(instagram.getFollowing)
-  getFollowing(@Body() createInstaDto: CreateInstaDto) {
-    return this.instaService.getFollowing(createInstaDto);
+  async getFollowing() {
+    return await this.instaService.getFollowing();
   }
 
   @Post(instagram.getInsta)
-  getInsta(@Body() createInstaDto: CreateInstaDto) {
-    return this.instaService.getInsta(createInstaDto);
+  async getInsta(@Body() createInstaDto: GetInsta) {
+    return await this.instaService.getInsta(createInstaDto);
   }
 }
