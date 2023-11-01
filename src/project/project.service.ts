@@ -3,6 +3,10 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
 import { CommonService } from 'src/common/common.service';
+import { getAllProject } from './dto/getall-project.dto';
+import { editProject } from './dto/edit-project.dto';
+import { deleteProject } from './dto/delete-project.dto';
+import { getProject } from './dto/get-project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -11,7 +15,7 @@ export class ProjectService {
     private common: CommonService,
   ) {}
 
-  async createProject(body: any) {
+  async createProject(body: CreateProjectDto) {
     try {
       console.log(body);
       const query = await this.neo4jService.write(
@@ -37,7 +41,7 @@ export class ProjectService {
     }
   }
 
-  async getAllProject(email: any) {
+  async getAllProject(email: getAllProject) {
     try {
       const query = await this.neo4jService.read(
         `match (u: user {email: $email})-[:HAS_PROJECT]->(p:project) return p`,
@@ -56,7 +60,7 @@ export class ProjectService {
     }
   }
 
-  async editProject(body: any) {
+  async editProject(body: editProject) {
     try {
       console.log(body);
       const query = await this.neo4jService.write(
@@ -81,7 +85,7 @@ export class ProjectService {
     }
   }
 
-  async deleteProject(body: any) {
+  async deleteProject(body: deleteProject) {
     try {
       console.log(body);
       const query = await this.neo4jService.write(
@@ -107,7 +111,7 @@ export class ProjectService {
     }
   }
 
-  async getProject(body: CreateProjectDto) {
+  async getProject(body: getProject) {
     try {
       const query = await this.common.matchNodeProperty(
         'project',

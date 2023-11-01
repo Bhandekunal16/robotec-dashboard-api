@@ -1,6 +1,3 @@
 export class CreateAuthDto {
-  email: string;
-  password: string;
-  phoneNumber: string;
-  type: string;
+  data: { email: string; password: string; phoneNumber: string; type: string };
 }

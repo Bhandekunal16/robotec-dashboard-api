@@ -1,7 +1,7 @@
-export class CreateProjectDto {
+export class editProject {
   data: {
-    email: any;
     projectName: string;
     codeIn: string;
+    email: string;
   };
 }

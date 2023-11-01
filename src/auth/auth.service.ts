@@ -3,6 +3,12 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { response } from 'src/constant/response';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { CommonService } from 'src/common/common.service';
+import { login } from './dto/login-dto';
+import { addTask } from './dto/Add-task.dto';
+import { getTask } from './dto/get-task.dto';
+import { removeTask } from './dto/remove-task.dto';
+import { editTask } from './dto/edit-task.dto';
+import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +16,7 @@ export class AuthService {
     @Inject(Neo4jService) private neo4jService: Neo4jService,
     private common: CommonService,
   ) {}
-  async register(body: any) {
+  async register(body: CreateAuthDto) {
     try {
       Logger.verbose(body);
       const query = await this.neo4jService.write(
@@ -35,7 +41,7 @@ export class AuthService {
     }
   }
 
-  async login(body: any) {
+  async login(body: login) {
     try {
       console.log(body);
       const query = await this.neo4jService.read(
@@ -56,7 +62,7 @@ export class AuthService {
     }
   }
 
-  async AddTask(body: any) {
+  async AddTask(body: addTask) {
     try {
       const query = await this.neo4jService.write(
         `match (u: user {email: $email})
@@ -82,7 +88,7 @@ export class AuthService {
     }
   }
 
-  async getTask(body: any) {
+  async getTask(body: getTask) {
     try {
       console.log(body);
       const query = await this.neo4jService.write(
@@ -106,7 +112,7 @@ export class AuthService {
     }
   }
 
-  async removeTask(body: any) {
+  async removeTask(body: removeTask) {
     try {
       const query = await this.neo4jService.write(
         `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
@@ -123,7 +129,7 @@ export class AuthService {
     }
   }
 
-  async editTaskStatus(body: any) {
+  async editTaskStatus(body: editTask) {
     try {
       const query = await this.neo4jService.write(
         `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
@@ -141,7 +147,7 @@ export class AuthService {
     }
   }
 
-  async setTaskStatusPending(body: any) {
+  async setTaskStatusPending(body: setTaskStatusPending) {
     try {
       const query = await this.neo4jService.write(
         `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
