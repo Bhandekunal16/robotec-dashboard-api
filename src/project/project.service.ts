@@ -81,6 +81,23 @@ export class ProjectService {
     }
   }
 
+  async deleteProject(body: any) {
+    try {
+      console.log(body);
+      const query = await this.neo4jService.write(
+        `match (u: user { email: $email})-[:HAS_PROJECT]->(p:project {projectName: $projectName}) 
+        detach delete p`,
+        {
+          email: body.data.email,
+          projectName: body.data.projectName,
+        },
+      );
+      return { status: true, msg: response.SUCCESS };
+    } catch (error) {
+      return { res: error, status: false, msg: response.error };
+    }
+  }
+
   async getCount(createProjectDto: CreateProjectDto) {
     try {
       const query = await this.common.count2('project');

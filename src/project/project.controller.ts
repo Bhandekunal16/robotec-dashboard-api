@@ -17,6 +17,11 @@ export class ProjectController {
     return this.projectService.editProject(createProjectDto);
   }
 
+  @Post('delete')
+  deleteProject(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectService.deleteProject(createProjectDto);
+  }
+
   @Get('getallproject/:email')
   getProjectById(@Param('email') email: string) {
     return this.projectService.getAllProject(email);
