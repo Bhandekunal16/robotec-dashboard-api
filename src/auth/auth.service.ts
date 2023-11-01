@@ -74,7 +74,7 @@ export class AuthService {
         body.data.name,
       );
 
-      if (match.status) {
+      if (!match.status) {
         const query = await this.neo4jService.write(
           `match (u: user {email: $email})
           merge (u)-[:has_task]->(t:task {name: $name, type: $type, taskStatus: "pending", created: $created})
