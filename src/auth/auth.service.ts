@@ -51,7 +51,7 @@ export class AuthService {
         : { data: null, status: false, msg: 'false' };
     } catch (error) {
       console.log(error);
-     
+
       return { res: error, status: false, msg: response.error };
     }
   }
@@ -60,13 +60,13 @@ export class AuthService {
     try {
       const query = await this.neo4jService.write(
         `match (u: user {email: $email})
-        merge (u)-[:has_task]->(t:task {name: $name, type: $type, date: $date})
+        merge (u)-[:has_task]->(t:task {name: $name, type: $type, taskStatus: "pending", created: $created})
         return t`,
         {
           email: body.data.email,
           name: body.data.name,
           type: body.data.type,
-          date: new Date().getDay(),
+          created: new Date().getTime(),
         },
       );
       return query.records.length > 0
@@ -76,6 +76,83 @@ export class AuthService {
             msg: response.SUCCESS,
           }
         : { data: null, status: false, msg: 'false' };
+    } catch (error) {
+      console.log(error);
+      return { res: error, status: false, msg: response.error };
+    }
+  }
+
+  async getTask(body: any) {
+    try {
+      console.log(body);
+      const query = await this.neo4jService.write(
+        `match (u:user {email : $email})-[:has_task]->(t:task)
+        return t`,
+        {
+          email: body.email,
+        },
+      );
+      const data = query.records.map((query) => query.get('t').properties);
+      return query.records.length > 0
+        ? {
+            data: data,
+            status: true,
+            msg: response.SUCCESS,
+          }
+        : { data: null, status: false, msg: 'false' };
+    } catch (error) {
+      console.log(error);
+      return { res: error, status: false, msg: response.error };
+    }
+  }
+
+  async removeTask(body: any) {
+    try {
+      const query = await this.neo4jService.write(
+        `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
+      detach delete t`,
+        {
+          email: body.data.email,
+          name: body.data.name,
+        },
+      );
+      return { status: true, msg: response.SUCCESS };
+    } catch (error) {
+      console.log(error);
+      return { res: error, status: false, msg: response.error };
+    }
+  }
+
+  async editTaskStatus(body: any) {
+    try {
+      const query = await this.neo4jService.write(
+        `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
+      set t.taskStatus= "Done"
+      return t`,
+        {
+          email: body.data.email,
+          name: body.data.name,
+        },
+      );
+      return { status: true, msg: response.SUCCESS };
+    } catch (error) {
+      console.log(error);
+      return { res: error, status: false, msg: response.error };
+    }
+  }
+
+  async setTaskStatusPending(body: any) {
+    try {
+      const query = await this.neo4jService.write(
+        `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
+      set t.taskStatus= "pending"
+      return t`,
+        {
+          email: body.data.email,
+          name: body.data.name,
+        },
+      );
+      return { status: true, msg: response.SUCCESS };
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.error };

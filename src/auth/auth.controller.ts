@@ -29,4 +29,26 @@ export class AuthController {
   async addTask(@Body() body: any) {
     return await this.authService.AddTask(body);
   }
+
+  @Post('task/get')
+  async GetTask(@Body() body: any) {
+    return await this.authService.getTask(body);
+  }
+
+  @Post('task/remove')
+  async removeTask(@Body() body: any) {
+    return await this.authService.removeTask(body);
+  }
+
+  @Post('task/status')
+  async editTaskStatus(@Body() body: any) {
+    return await this.authService.editTaskStatus(body);
+  }
+
+  @Post('task/status/pending')
+  async setTaskStatusPending(@Body() body: any) {
+    return await this.authService.setTaskStatusPending(body);
+  }
+
+  
 }

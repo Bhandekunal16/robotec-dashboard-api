@@ -10,12 +10,19 @@ export class ProjectService {
     @Inject(Neo4jService) private neo4jService: Neo4jService,
     private common: CommonService,
   ) {}
-  async createProject(body: CreateProjectDto) {
+
+  async createProject(body: any) {
     try {
+      console.log(body);
       const query = await this.neo4jService.write(
-        `merge (p:project {projectName:"${body.projectName}",codeIn:"${
-          body.codeIn
-        }",Date:"${new Date().getDate()}"}) return p`,
+        `match (u: user { email: $email})
+        merge (u)-[:HAS_PROJECT]->(p:project {projectName: $projectName,codeIn: $codeIn, Date: $Date}) return p`,
+        {
+          email: body.data.email,
+          projectName: body.data.projectName,
+          codeIn: body.data.codeIn,
+          Date: new Date().getDate(),
+        },
       );
       return query.records.length > 0
         ? {
@@ -25,16 +32,52 @@ export class ProjectService {
           }
         : { data: null, status: false, msg: response.error };
     } catch (error) {
-      return error;
+      console.log(error);
+      return { res: error, status: false, msg: response.error };
     }
   }
 
-  async getAllProject(createProjectDto: CreateProjectDto) {
+  async getAllProject(email: any) {
     try {
-      const query = await this.common.matchNode('project');
-      return query;
+      const query = await this.neo4jService.read(
+        `match (u: user {email: $email})-[:HAS_PROJECT]->(p:project) return p`,
+        { email: email },
+      );
+      const data = query.records.map((query) => query.get('p').properties);
+      return query.records.length > 0
+        ? {
+            data: data,
+            status: true,
+            msg: response.SUCCESS,
+          }
+        : { data: null, status: false, msg: 'false' };
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.error };
+    }
+  }
+
+  async editProject(body: any) {
+    try {
+      console.log(body);
+      const query = await this.neo4jService.write(
+        `match (u: user { email: $email})-[:HAS_PROJECT]->(p:project {projectName: $projectName}) 
+        set p.codeIn=$codeIn
+        return p`,
+        {
+          email: body.data.email,
+          projectName: body.data.projectName,
+          codeIn: body.data.codeIn,
+        },
+      );
+      return query.records.length > 0
+        ? {
+            data: query.records[0].get('p')['properties'],
+            status: true,
+            msg: response.SUCCESS,
+          }
+        : { data: null, status: false, msg: response.error };
+    } catch (error) {
+      return { res: error, status: false, msg: response.error };
     }
   }
 

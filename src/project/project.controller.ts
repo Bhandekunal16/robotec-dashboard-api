@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { project } from 'src/routes/routes';
@@ -12,14 +12,14 @@ export class ProjectController {
     return this.projectService.createProject(createProjectDto);
   }
 
-  @Get(project.GetAllProject)
-  getAllProject(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectService.getAllProject(createProjectDto);
+  @Post('edit')
+  EditProject(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectService.editProject(createProjectDto);
   }
 
-  @Get(project.getCount)
-  getCount(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectService.getCount(createProjectDto);
+  @Get('getallproject/:email')
+  getProjectById(@Param('email') email: string) {
+    return this.projectService.getAllProject(email);
   }
 
   @Post(project.getProject)
