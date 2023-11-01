@@ -64,24 +64,38 @@ export class AuthService {
 
   async AddTask(body: addTask) {
     try {
-      const query = await this.neo4jService.write(
-        `match (u: user {email: $email})
-        merge (u)-[:has_task]->(t:task {name: $name, type: $type, taskStatus: "pending", created: $created})
-        return t`,
-        {
-          email: body.data.email,
-          name: body.data.name,
-          type: body.data.type,
-          created: new Date().getTime(),
-        },
+      const match = await this.common.matchProperty(
+        'user',
+        'email',
+        body.data.email,
+        'has_task',
+        'task',
+        'name',
+        body.data.name,
       );
-      return query.records.length > 0
-        ? {
-            data: query.records[0].get('t')['properties'],
-            status: true,
-            msg: response.SUCCESS,
-          }
-        : { data: null, status: false, msg: 'false' };
+
+      if (match.status) {
+        const query = await this.neo4jService.write(
+          `match (u: user {email: $email})
+          merge (u)-[:has_task]->(t:task {name: $name, type: $type, taskStatus: "pending", created: $created})
+          return t`,
+          {
+            email: body.data.email,
+            name: body.data.name,
+            type: body.data.type,
+            created: new Date().getTime(),
+          },
+        );
+        return query.records.length > 0
+          ? {
+              data: query.records[0].get('t')['properties'],
+              status: true,
+              msg: response.SUCCESS,
+            }
+          : { data: null, status: false, msg: 'false' };
+      } else {
+        return { data: null, status: false, msg: 'same task present' };
+      }
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.error };

@@ -75,4 +75,43 @@ export class CommonService {
       return error;
     }
   }
+
+  async matchProperty(
+    node1: any,
+    property1: any,
+    value1: any,
+    relation: any,
+    node2: any,
+    property2: any,
+    value2: any,
+  ) {
+    try {
+      const Query = await this.neo.read(
+        `
+        MATCH (n: ${node1} { ${property1}: $value1 })-[r:${relation}]->(m:${node2} { ${property2}: $value2 })
+        RETURN m,n
+        `,
+        { value1, value2 },
+      );
+
+      const data = Query.records.map((record) => record.get('m').properties);
+      const data2 = Query.records.map((record) => record.get('n').properties);
+      Logger.verbose(Query.records.length);
+      return Query.records.length > 0
+        ? {
+            data: data,
+            data2: data2,
+            status: true,
+            msg: 'success',
+          }
+        : {
+            data: null,
+            status: false,
+            msg: 'Failed',
+          };
+    } catch (error) {
+      Logger.error(error);
+      return error;
+    }
+  }
 }
