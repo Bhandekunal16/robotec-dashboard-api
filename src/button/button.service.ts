@@ -30,7 +30,7 @@ export class ButtonService {
             `;
       return ui;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: 'error' };
     }
   }
 
@@ -130,7 +130,7 @@ export class ButtonService {
         return ui;
       }
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: 'error' };
     }
   }
 }

@@ -5,6 +5,7 @@ import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
 import { CommonService } from 'src/common/common.service';
 import { GetInsta } from './dto/get-insta.dto';
+import { time } from 'robotic-time';
 
 @Injectable()
 export class InstaService {
@@ -17,7 +18,7 @@ export class InstaService {
     try {
       const query = await this.neo4jService.write(
         `merge (i:instagram {Date: $date,type: $type, userName: $userName}) return i`,
-        { date: new Date(), type: data.type, userName: data.userName },
+        { date: time().Time, type: data.type, userName: data.userName },
       );
       return query.records.length > 0
         ? {

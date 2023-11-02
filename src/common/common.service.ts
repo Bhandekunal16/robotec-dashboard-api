@@ -21,7 +21,8 @@ export class CommonService {
     try {
       Logger.log('in the match node');
       const query = await this.neo.read(
-        `match (n:${node} {${property} : "${value}"}) return n`,
+        `match (n:${node} {${property} : $value}) return n`,
+        { value },
       );
       const data = query.records.map((query) => query.get('n').properties);
       return query.records.length > 0
@@ -35,7 +36,8 @@ export class CommonService {
   async count(node: any, property: any, value: any) {
     try {
       const Query = await this.neo.read(
-        `match (n:${node} {${property} : "${value}"}) return count(n)`,
+        `match (n:${node} {${property} : $value}) return count(n)`,
+        { value },
       );
       Logger.verbose(Query.records.length);
       return Query.records.length > 0
