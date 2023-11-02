@@ -9,7 +9,6 @@ import { getTask } from './dto/get-task.dto';
 import { removeTask } from './dto/remove-task.dto';
 import { editTask } from './dto/edit-task.dto';
 import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
-import { time } from 'robotic-time';
 
 @Injectable()
 export class AuthService {
@@ -84,7 +83,7 @@ export class AuthService {
             email: body.data.email,
             name: body.data.name,
             type: body.data.type,
-            created: time().Time,
+            created: new Date().getTime(),
           },
         );
         return query.records.length > 0

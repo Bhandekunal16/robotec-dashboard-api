@@ -3,7 +3,6 @@ import { CreateYoutubeDto } from './dto/create-youtube.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
 import { CommonService } from 'src/common/common.service';
-import { time } from 'robotic-time';
 
 @Injectable()
 export class YoutubeService {
@@ -17,7 +16,7 @@ export class YoutubeService {
       const query = await this.neo4jService.write(
         `merge (y:youtube {Date: $date, type: $type, name: $name}) return y`,
         {
-          date: time().date,
+          date: new Date().getTime(),
           type: body.type,
           name: body.name,
         },

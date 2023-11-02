@@ -7,7 +7,6 @@ import { getAllProject } from './dto/getall-project.dto';
 import { editProject } from './dto/edit-project.dto';
 import { deleteProject } from './dto/delete-project.dto';
 import { getProject } from './dto/get-project.dto';
-import { time } from 'robotic-time';
 
 @Injectable()
 export class ProjectService {
@@ -26,7 +25,7 @@ export class ProjectService {
           email: body.data.email,
           projectName: body.data.projectName,
           codeIn: body.data.codeIn,
-          Date: time().date,
+          Date: new Date().getDate(),
         },
       );
       return query.records.length > 0
