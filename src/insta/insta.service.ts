@@ -16,9 +16,8 @@ export class InstaService {
   async createInsta(data: CreateInstaDto) {
     try {
       const query = await this.neo4jService.write(
-        `merge (i:instagram {Date:"${new Date()}",type:"${
-          data.type
-        }",userName:"${data.userName}"}) return i`,
+        `merge (i:instagram {Date: $date,type: $type, userName: $userName}) return i`,
+        { date: new Date(), type: data.type, userName: data.userName },
       );
       return query.records.length > 0
         ? {

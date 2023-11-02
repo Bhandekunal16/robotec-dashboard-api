@@ -104,8 +104,10 @@ export class ProjectService {
 
   async getCount() {
     try {
-      const query = await this.common.count2('project');
-      return query;
+      const match = await this.common.matchNode('project');
+      return match.status
+        ? await this.common.count2('project')
+        : { data: null, status: false, msg: 'false' };
     } catch (error) {
       return error;
     }

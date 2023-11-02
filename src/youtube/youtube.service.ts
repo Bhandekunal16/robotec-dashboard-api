@@ -1,21 +1,25 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateYoutubeDto } from './dto/create-youtube.dto';
-import { UpdateYoutubeDto } from './dto/update-youtube.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
-
 import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class YoutubeService {
-  constructor(@Inject(Neo4jService) private neo4jService: Neo4jService, private common: CommonService) {}
+  constructor(
+    @Inject(Neo4jService) private neo4jService: Neo4jService,
+    private common: CommonService,
+  ) {}
 
   async createYoutube(body: CreateYoutubeDto) {
     try {
       const query = await this.neo4jService.write(
-        `merge (y:youtube {Date:"${new Date()}",type:"${body.type}",name:"${
-          body.name
-        }"}) return y`,
+        `merge (y:youtube {Date: $date, type: $type, name: $name}) return y`,
+        {
+          date: new Date().toLocaleTimeString(),
+          type: body.type,
+          name: body.name,
+        },
       );
       return query.records.length > 0
         ? {
@@ -31,8 +35,12 @@ export class YoutubeService {
 
   async getAllYoutube(body: CreateYoutubeDto) {
     try {
-      const query = await this.common.matchNodeProperty('youtube','type','vedio')
-      return query
+      const query = await this.common.matchNodeProperty(
+        'youtube',
+        'type',
+        'vedio',
+      );
+      return query;
     } catch (error) {
       return error;
     }
@@ -40,8 +48,12 @@ export class YoutubeService {
 
   async getYoutube(body: CreateYoutubeDto) {
     try {
-      const query = await this.common.matchNodeProperty('youtube','type',body.name)
-      return query
+      const query = await this.common.matchNodeProperty(
+        'youtube',
+        'type',
+        body.name,
+      );
+      return query;
     } catch (error) {
       return error;
     }

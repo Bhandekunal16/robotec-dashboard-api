@@ -8,32 +8,32 @@ export class RobotecUserController {
   constructor(private readonly robotecUserService: RobotecUserService) {}
 
   @Post(user.register)
-  async register(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return await this.robotecUserService.register(createRobotecUserDto);
+  async register(@Body() body: CreateRobotecUserDto) {
+    return await this.robotecUserService.register(body);
   }
 
   @Post(user.Login)
-  async login(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return await this.robotecUserService.login(createRobotecUserDto);
+  async login(@Body() body: CreateRobotecUserDto) {
+    return await this.robotecUserService.login(body);
   }
 
   @Post(user.avatar)
-  async avatar(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return await this.robotecUserService.avatar(createRobotecUserDto);
+  async avatar(@Body() body: CreateRobotecUserDto) {
+    return await this.robotecUserService.avatar(body);
   }
 
   @Post(user.RegisterShop)
-  async shopName(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return await this.robotecUserService.shopName(createRobotecUserDto);
+  async shopName(@Body() body: CreateRobotecUserDto) {
+    return await this.robotecUserService.shopName(body);
   }
 
   @Patch(user.EditProfile)
-  async editProfile(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return await this.robotecUserService.editProfile(createRobotecUserDto);
+  async editProfile(@Body() body: CreateRobotecUserDto) {
+    return await this.robotecUserService.editProfile(body);
   }
 
   @Get(user.GetAllUser)
-  async allUser(@Body() createRobotecUserDto: CreateRobotecUserDto) {
-    return await this.robotecUserService.allUser(createRobotecUserDto);
+  async allUser() {
+    return await this.robotecUserService.allUser();
   }
 }

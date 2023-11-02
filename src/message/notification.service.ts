@@ -9,18 +9,19 @@ export class NotificationService {
 
   async sendEmailNotification(to: string, message: string) {
     try {
-      // Define email subject and content
       const subject = 'Robotic';
       const text = message;
       const html = `<p>${message}</p>`;
 
-      // Send the email notification
-      await this.emailService.sendEmail(to, subject, text, html);
-
-      return { success: true, message: 'Email notification sent successfully' };
+      if (text !== undefined) {
+        await this.emailService.sendEmail(to, subject, text, html);
+        return {
+          success: true,
+          message: 'Email notification sent successfully',
+        };
+      } else return {status: true, message: 'email not send due to message'}
     } catch (error) {
-      // Handle email sending errors
-      throw error;
+      return { res: error, status: false, msg: 'error' };
     }
   }
 }
