@@ -1,3 +1,3 @@
-export const environment = {
-  username: 'neo4j',
-};
+export class environment {
+  public static username = 'neo4j';
+}
