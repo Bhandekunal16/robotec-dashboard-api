@@ -6,12 +6,13 @@ import { RobotecUserModule } from './robotec-user/robotec-user.module';
 import { ProjectModule } from './project/project.module';
 import { InstaModule } from './insta/insta.module';
 import { YoutubeModule } from './youtube/youtube.module';
-import { environment } from './env/enverment';
+import { environment } from './env/environment';
 import { CommonService } from './common/common.service';
 import { ButtonService } from './button/button.service';
 import { DashboardService } from './dashboard/dashboard.service';
 import { MessageModule } from './message/message.module';
 import { AuthModule } from './auth/auth.module';
+
 require('dotenv').config();
 
 Logger.log('neo4j PORT :' + process.env.PORT, 'appModule');
