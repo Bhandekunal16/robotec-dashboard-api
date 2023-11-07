@@ -12,17 +12,17 @@ export class AppController {
   ) {}
 
   @Get()
-  getHello(): any {
-    return this.button.ButtonUi();
+  async getHello() {
+    return await this.button.ButtonUi();
   }
 
   @Post('get/dashboard')
-  createDashboard(@Body() body: any) {
-    return this.dashboard.createDashboard(body);
+  async createDashboard(@Body() body: any) {
+    return await  this.dashboard.createDashboard(body);
   }
 
   @Post('get/ButtonUI')
-  getButton(@Body() body: any) {
-    return this.button.ButtonUiResponsive(body);
+  async getButton(@Body() body: any) {
+    return await this.button.ButtonUiResponsive(body);
   }
 }
