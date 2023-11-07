@@ -27,7 +27,7 @@ export class YoutubeService {
             msg: response.SUCCESS,
             status: true,
           }
-        : { data: null, msg: response.error, status: false };
+        : { data: null, msg: response.ERROR, status: false };
     } catch (error) {
       return error;
     }
@@ -69,7 +69,7 @@ export class YoutubeService {
             status: true,
             msg: response.SUCCESS,
           }
-        : { data: null, status: false, msg: response.error };
+        : { data: null, status: false, msg: response.ERROR };
     } catch (error) {
       return error;
     }

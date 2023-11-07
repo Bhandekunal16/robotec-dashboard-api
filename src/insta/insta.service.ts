@@ -28,7 +28,7 @@ export class InstaService {
             msg: response.SUCCESS,
             status: true,
           }
-        : { data: null, msg: response.error, status: false };
+        : { data: null, msg: response.ERROR, status: false };
     } catch (error) {
       return error;
     }

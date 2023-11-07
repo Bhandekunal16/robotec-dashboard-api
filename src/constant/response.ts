@@ -1,4 +1,5 @@
-export const response = {
-  SUCCESS: 'SUCCESS',
-  error: 'FAILD',
-};
+export class response {
+  public static SUCCESS = 'SUCCESS';
+  public static ERROR = 'error';
+  public static FAILURE = 'FAILURE';
+}

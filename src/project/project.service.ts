@@ -34,10 +34,10 @@ export class ProjectService {
             status: true,
             msg: response.SUCCESS,
           }
-        : { data: null, status: false, msg: response.error };
+        : { data: null, status: false, msg: response.FAILURE };
     } catch (error) {
       console.log(error);
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -54,9 +54,9 @@ export class ProjectService {
             status: true,
             msg: response.SUCCESS,
           }
-        : { data: null, status: false, msg: 'false' };
+        : { data: null, status: false, msg: response.FAILURE };
     } catch (error) {
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -79,9 +79,9 @@ export class ProjectService {
             status: true,
             msg: response.SUCCESS,
           }
-        : { data: null, status: false, msg: response.error };
+        : { data: null, status: false, msg: response.FAILURE };
     } catch (error) {
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -98,7 +98,7 @@ export class ProjectService {
       );
       return { status: true, msg: response.SUCCESS };
     } catch (error) {
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 

@@ -25,7 +25,7 @@ export class RobotecUserService {
             msg: response.SUCCESS,
             status: true,
           }
-        : { data: null, msg: response.error, status: false };
+        : { data: null, msg: response.ERROR, status: false };
     } catch (error) {
       return { res: error, status: false, msg: 'error' };
     }
@@ -42,7 +42,7 @@ export class RobotecUserService {
       });
       return query.records.length > 0
         ? { data: data, status: true, msg: response.SUCCESS }
-        : { data: null, status: false, msg: response.error };
+        : { data: null, status: false, msg: response.ERROR };
     } catch (error) {
       return { res: error, status: false, msg: 'error' };
     }
@@ -71,7 +71,7 @@ export class RobotecUserService {
             data: query.records[0].get('n').properties,
             status: true,
           }
-        : { msg: response.error, data: null, status: false };
+        : { msg: response.ERROR, data: null, status: false };
     } catch (error) {
       return { res: error, status: false, msg: 'error' };
     }
@@ -100,7 +100,7 @@ export class RobotecUserService {
             msg: response.SUCCESS,
             status: true,
           }
-        : { data: null, msg: response.error, status: false };
+        : { data: null, msg: response.ERROR, status: false };
     } catch (error) {
       return { res: error, status: false, msg: 'error' };
     }
@@ -118,7 +118,7 @@ export class RobotecUserService {
             status: true,
             msg: response.SUCCESS,
           }
-        : { data: null, status: false, msg: response.error };
+        : { data: null, status: false, msg: response.ERROR };
     } catch (error) {
       return { res: error, status: false, msg: 'error' };
     }
@@ -139,7 +139,7 @@ export class RobotecUserService {
           }
         : {
             status: false,
-            msg: response.error,
+            msg: response.ERROR,
             data: null,
           };
     } catch (error) {

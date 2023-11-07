@@ -34,10 +34,10 @@ export class AuthService {
             msg: response.SUCCESS,
             status: true,
           }
-        : { data: null, msg: response.error, status: false };
+        : { data: null, msg: response.FAILURE, status: false };
     } catch (error) {
       Logger.error(error);
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -58,7 +58,7 @@ export class AuthService {
     } catch (error) {
       console.log(error);
 
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -98,7 +98,7 @@ export class AuthService {
       }
     } catch (error) {
       console.log(error);
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -122,7 +122,7 @@ export class AuthService {
         : { data: null, status: false, msg: 'false' };
     } catch (error) {
       console.log(error);
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -139,7 +139,7 @@ export class AuthService {
       return { status: true, msg: response.SUCCESS };
     } catch (error) {
       console.log(error);
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -157,7 +157,7 @@ export class AuthService {
       return { status: true, msg: response.SUCCESS };
     } catch (error) {
       console.log(error);
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -175,7 +175,7 @@ export class AuthService {
       return { status: true, msg: response.SUCCESS };
     } catch (error) {
       console.log(error);
-      return { res: error, status: false, msg: response.error };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 }
