@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Neo4jService } from 'nest-neo4j/dist';
+import { response } from 'src/constant/response';
 
 @Injectable()
 export class CommonService {
@@ -10,10 +11,14 @@ export class CommonService {
       const query = await this.neo.read(`match (n:${node}) return n`);
       const data = query.records.map((query) => query.get('n').properties);
       return query.records.length > 0
-        ? { data: data, status: true, msg: 'success' }
-        : { data: null, status: false, msg: 'failed' };
+        ? { data: data, status: true, msg: response.SUCCESS + 'node found' }
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'node not found',
+          };
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -26,10 +31,14 @@ export class CommonService {
       );
       const data = query.records.map((query) => query.get('n').properties);
       return query.records.length > 0
-        ? { data: data, status: true, msg: 'success' }
-        : { data: null, status: false, msg: 'failed' };
+        ? { data: data, status: true, msg: response.SUCCESS + 'node found' }
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'node not found',
+          };
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -44,16 +53,16 @@ export class CommonService {
         ? {
             data: Query.records[0].get('count(n)').low,
             status: true,
-            msg: 'success',
+            msg: response.SUCCESS + `count for ${node}`,
           }
         : {
             data: null,
             status: false,
-            msg: 'Failed',
+            msg: response.FAILURE + `count for ${node}`,
           };
     } catch (error) {
       Logger.error(error);
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -65,16 +74,16 @@ export class CommonService {
         ? {
             data: Query.records[0].get('count(n)').low,
             status: true,
-            msg: 'success',
+            msg: response.SUCCESS + `count for ${node}`,
           }
         : {
             data: null,
             status: false,
-            msg: 'Failed',
+            msg: response.FAILURE + `count for ${node}`,
           };
     } catch (error) {
       Logger.error(error);
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -104,16 +113,16 @@ export class CommonService {
             data: data,
             data2: data2,
             status: true,
-            msg: 'success',
+            msg: response.SUCCESS + 'node found',
           }
         : {
             data: null,
             status: false,
-            msg: 'Failed',
+            msg: response.FAILURE + 'node not found',
           };
     } catch (error) {
       Logger.error(error);
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 }

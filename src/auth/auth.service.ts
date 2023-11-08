@@ -31,10 +31,14 @@ export class AuthService {
       return query.records.length > 0
         ? {
             data: query.records[0].get('m')['properties'],
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'new user registered successfully',
             status: true,
           }
-        : { data: null, msg: response.FAILURE, status: false };
+        : {
+            data: null,
+            msg: response.FAILURE + 'registration failed!',
+            status: false,
+          };
     } catch (error) {
       Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
@@ -52,9 +56,13 @@ export class AuthService {
         ? {
             data: query.records[0].get('u')['properties'],
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'Login successful',
           }
-        : { data: null, status: false, msg: 'false' };
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'please check your credentials',
+          };
     } catch (error) {
       console.log(error);
 
@@ -90,9 +98,15 @@ export class AuthService {
           ? {
               data: query.records[0].get('t')['properties'],
               status: true,
-              msg: response.SUCCESS,
+              msg: response.SUCCESS + 'task added successfully',
             }
-          : { data: null, status: false, msg: 'false' };
+          : {
+              data: null,
+              status: false,
+              msg:
+                response.FAILURE +
+                'email address not matching. please check your credentials',
+            };
       } else {
         return { data: null, status: false, msg: 'same task present' };
       }
@@ -117,9 +131,13 @@ export class AuthService {
         ? {
             data: data,
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'task found.',
           }
-        : { data: null, status: false, msg: 'false' };
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'task not found.',
+          };
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.ERROR };
@@ -136,7 +154,10 @@ export class AuthService {
           name: body.data.name,
         },
       );
-      return { status: true, msg: response.SUCCESS };
+      return {
+        status: true,
+        msg: response.SUCCESS + 'task removed successfully',
+      };
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.ERROR };
@@ -154,7 +175,10 @@ export class AuthService {
           name: body.data.name,
         },
       );
-      return { status: true, msg: response.SUCCESS };
+      return {
+        status: true,
+        msg: response.SUCCESS + 'task edited successfully.',
+      };
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.ERROR };
@@ -172,7 +196,7 @@ export class AuthService {
           name: body.data.name,
         },
       );
-      return { status: true, msg: response.SUCCESS };
+      return { status: true, msg: response.SUCCESS + 'task status changed' };
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.ERROR };

@@ -24,12 +24,17 @@ export class YoutubeService {
       return query.records.length > 0
         ? {
             data: query.records[0].get('y')['properties'],
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'successfully created',
             status: true,
           }
-        : { data: null, msg: response.ERROR, status: false };
+        : {
+            data: null,
+            msg:
+              response.FAILURE + 'something gone wrong when creating youtube.',
+            status: false,
+          };
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -42,7 +47,7 @@ export class YoutubeService {
       );
       return query;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -55,7 +60,7 @@ export class YoutubeService {
       );
       return query;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -63,15 +68,15 @@ export class YoutubeService {
     try {
       const query = await this.common.count2(`youtube`);
 
-      return query.records.length > 0
+      return query.status
         ? {
-            data: query.records[0].get('count(n)').low,
+            data: query.data,
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'youtube found.',
           }
-        : { data: null, status: false, msg: response.ERROR };
+        : { data: null, status: false, msg: response.FAILURE };
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 }

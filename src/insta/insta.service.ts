@@ -25,12 +25,16 @@ export class InstaService {
       return query.records.length > 0
         ? {
             data: query.records[0].get('i')['properties'],
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'insta account created successfully',
             status: true,
           }
-        : { data: null, msg: response.ERROR, status: false };
+        : {
+            data: null,
+            msg: response.FAILURE + 'not created anything',
+            status: false,
+          };
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -39,7 +43,7 @@ export class InstaService {
       const query = await this.common.matchNode('instagram');
       return query;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -52,7 +56,7 @@ export class InstaService {
       );
       return query;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -61,7 +65,7 @@ export class InstaService {
       const query = await this.common.count('instagram', 'type', 'following');
       return query;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -70,7 +74,7 @@ export class InstaService {
       const query = await this.common.count('instagram', 'type', 'follower');
       return query;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 }

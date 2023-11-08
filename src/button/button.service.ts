@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { response } from 'src/constant/response';
 
 @Injectable()
 export class ButtonService {
@@ -30,7 +31,7 @@ export class ButtonService {
             `;
       return ui;
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -130,7 +131,7 @@ export class ButtonService {
         return ui;
       }
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 }

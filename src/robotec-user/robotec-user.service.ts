@@ -22,12 +22,16 @@ export class RobotecUserService {
       return query.records.length > 0
         ? {
             data: query.records[0].get('m').properties,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'man added successfully.',
             status: true,
           }
-        : { data: null, msg: response.ERROR, status: false };
+        : {
+            data: null,
+            msg: response.FAILURE + 'man not added',
+            status: false,
+          };
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -41,8 +45,12 @@ export class RobotecUserService {
         data.push(e.get('m').properties);
       });
       return query.records.length > 0
-        ? { data: data, status: true, msg: response.SUCCESS }
-        : { data: null, status: false, msg: response.ERROR };
+        ? { data: data, status: true, msg: response.SUCCESS + 'man found.' }
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'man not found.',
+          };
     } catch (error) {
       return { res: error, status: false, msg: 'error' };
     }
@@ -67,13 +75,17 @@ export class RobotecUserService {
       );
       return query.records.length > 0
         ? {
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'shop edited successfully',
             data: query.records[0].get('n').properties,
             status: true,
           }
-        : { msg: response.ERROR, data: null, status: false };
+        : {
+            msg: response.FAILURE + 'shop not edited',
+            data: null,
+            status: false,
+          };
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -97,12 +109,16 @@ export class RobotecUserService {
       return query.records.length > 0
         ? {
             data: query.records[0].get('n').properties,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'profile edited successfully',
             status: true,
           }
-        : { data: null, msg: response.ERROR, status: false };
+        : {
+            data: null,
+            msg: response.FAILURE + 'profile not edited',
+            status: false,
+          };
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -116,11 +132,15 @@ export class RobotecUserService {
         ? {
             data: query.records[0].get('m').properties,
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'match man',
           }
-        : { data: null, status: false, msg: response.ERROR };
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'email not found',
+          };
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -133,17 +153,19 @@ export class RobotecUserService {
       return query.records.length !== 0
         ? {
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'login successful',
             data: query.records[0].get('m').properties.type,
             body: query.records[0].get('m').properties.email,
           }
         : {
             status: false,
-            msg: response.ERROR,
+            msg:
+              response.FAILURE +
+              'please try again later and check your credentials',
             data: null,
           };
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 }

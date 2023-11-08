@@ -32,9 +32,13 @@ export class ProjectService {
         ? {
             data: query.records[0].get('p')['properties'],
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'project created successfully',
           }
-        : { data: null, status: false, msg: response.FAILURE };
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'failed to create project',
+          };
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.ERROR };
@@ -52,9 +56,13 @@ export class ProjectService {
         ? {
             data: data,
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'project found.',
           }
-        : { data: null, status: false, msg: response.FAILURE };
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'project not found',
+          };
     } catch (error) {
       return { res: error, status: false, msg: response.ERROR };
     }
@@ -77,9 +85,13 @@ export class ProjectService {
         ? {
             data: query.records[0].get('p')['properties'],
             status: true,
-            msg: response.SUCCESS,
+            msg: response.SUCCESS + 'project edited successfully',
           }
-        : { data: null, status: false, msg: response.FAILURE };
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'project not found',
+          };
     } catch (error) {
       return { res: error, status: false, msg: response.ERROR };
     }
@@ -96,7 +108,10 @@ export class ProjectService {
           projectName: body.data.projectName,
         },
       );
-      return { status: true, msg: response.SUCCESS };
+      return {
+        status: true,
+        msg: response.SUCCESS + 'project deleted successfully',
+      };
     } catch (error) {
       return { res: error, status: false, msg: response.ERROR };
     }
@@ -107,9 +122,13 @@ export class ProjectService {
       const match = await this.common.matchNode('project');
       return match.status
         ? await this.common.count2('project')
-        : { data: null, status: false, msg: 'false' };
+        : {
+            data: null,
+            status: false,
+            msg: response.FAILURE + 'we do not have any project',
+          };
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 
@@ -122,7 +141,7 @@ export class ProjectService {
       );
       return query;
     } catch (error) {
-      return error;
+      return { res: error, status: false, msg: response.ERROR };
     }
   }
 }
