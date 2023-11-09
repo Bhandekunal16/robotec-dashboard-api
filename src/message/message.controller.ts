@@ -1,18 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Logger,
-} from '@nestjs/common';
+import { Controller, Post, Body, Logger } from '@nestjs/common';
 import { MessageService } from './message.service';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { UpdateMessageDto } from './dto/update-message.dto';
 import { NotificationService } from './notification.service';
-import { log } from 'console';
 
 @Controller('message')
 export class MessageController {

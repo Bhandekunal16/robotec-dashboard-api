@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { YoutubeService } from './youtube.service';
 import { CreateYoutubeDto } from './dto/create-youtube.dto';
-import { UpdateYoutubeDto } from './dto/update-youtube.dto';
 import { youtube } from 'src/routes/routes';
 
 @Controller(youtube.Controller)
@@ -35,5 +26,4 @@ export class YoutubeController {
   getYoutube(@Body() createYoutubeDto: CreateYoutubeDto) {
     return this.youtubeService.getYoutube(createYoutubeDto);
   }
-
 }
