@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ButtonService } from './button/button.service';
 import { DashboardService } from './dashboard/dashboard.service';
+import { time } from 'robotic-time';
 
 @Controller()
 export class AppController {
@@ -13,12 +14,13 @@ export class AppController {
 
   @Get()
   async getHello() {
+    console.log(time());
     return await this.button.ButtonUi();
   }
 
   @Post('get/dashboard')
   async createDashboard(@Body() body: any) {
-    return await  this.dashboard.createDashboard(body);
+    return await this.dashboard.createDashboard(body);
   }
 
   @Post('get/ButtonUI')
