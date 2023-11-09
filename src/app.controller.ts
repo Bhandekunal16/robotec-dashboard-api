@@ -14,7 +14,6 @@ export class AppController {
 
   @Get()
   async getHello() {
-    console.log(time());
     return await this.button.ButtonUi();
   }
 
