@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { login } from './dto/login-dto';
@@ -52,8 +52,8 @@ export class AuthController {
     return await this.authService.getTaskCount(body);
   }
 
-  @Post('task/get')
-  async matchUser(@Body() body: editTask) {
-    return await this.authService.matchUser(body);
+  @Get('task/get/:email')
+  async matchUser(@Param('email') email: any) {
+    return await this.authService.matchUser(email);
   }
 }
