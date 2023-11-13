@@ -225,13 +225,9 @@ export class AuthService {
     }
   }
 
-  async matchUser(body: any) {
+  async matchUser(email: any) {
     try {
-      const query = await this.common.matchNodeProperty(
-        'user',
-        'email',
-        body.data,
-      );
+      const query = await this.common.matchNodeProperty('user', 'email', email);
       return query;
     } catch (error) {
       return { res: error, status: false, msg: response.ERROR };
