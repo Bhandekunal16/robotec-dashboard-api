@@ -206,17 +206,17 @@ export class AuthService {
   async getTaskCount(body: any) {
     try {
       const success = await this.neo4jService.read(
-        `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "Done"})`,
+        `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "Done"}) return count(u)`,
         { email: body.data.email },
       );
       const pending = await this.neo4jService.read(
-        `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "pending"})`,
+        `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "pending"}) return count(u)`,
         { email: body.data.email },
       );
 
       return {
-        success: success,
-        pending: pending,
+        success: success.records[0].get('count(u)').low,
+        pending: pending.records[0].get('count(u)').low,
         status: true,
         msg: response.SUCCESS,
       };
