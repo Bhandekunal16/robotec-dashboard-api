@@ -1,5 +1,5 @@
 export class CreateInstaDto {
-  type: string;
-  userName: string;
-  Date: string;
+  readonly type: string;
+  readonly userName: string;
+  readonly Date: string;
 }

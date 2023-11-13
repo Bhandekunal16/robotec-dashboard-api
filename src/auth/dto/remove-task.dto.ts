@@ -1,6 +1,6 @@
 export class removeTask {
-  data: {
-    email: string;
-    name: string;
+  readonly data: {
+    readonly email: string;
+    readonly name: string;
   };
 }

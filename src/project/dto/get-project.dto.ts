@@ -1,3 +1,3 @@
 export class getProject {
-  projectName: string;
+  readonly projectName: string;
 }

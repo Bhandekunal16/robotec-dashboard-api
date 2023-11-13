@@ -1,7 +1,7 @@
 export class addTask {
-  data: {
-    email: string;
-    name: string;
-    type: string;
+  readonly data: {
+    readonly email: string;
+    readonly name: string;
+    readonly type: string;
   };
 }

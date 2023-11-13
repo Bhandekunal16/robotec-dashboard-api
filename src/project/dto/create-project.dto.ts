@@ -1,7 +1,7 @@
 export class CreateProjectDto {
-  data: {
-    email: any;
-    projectName: string;
-    codeIn: string;
+  readonly data: {
+    readonly email: string;
+    readonly projectName: string;
+    readonly codeIn: string;
   };
 }

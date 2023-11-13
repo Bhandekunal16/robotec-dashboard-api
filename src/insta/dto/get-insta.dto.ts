@@ -1,3 +1,3 @@
 export class GetInsta {
-  userName: string;
+  readonly userName: string;
 }

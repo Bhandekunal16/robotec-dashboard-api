@@ -1,7 +1,7 @@
 export class editProject {
-  data: {
-    projectName: string;
-    codeIn: string;
-    email: string;
+  readonly data: {
+    readonly projectName: string;
+    readonly codeIn: string;
+    readonly email: string;
   };
 }

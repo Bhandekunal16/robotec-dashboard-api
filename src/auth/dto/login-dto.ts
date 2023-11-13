@@ -1,6 +1,6 @@
 export class login {
-  data: {
-    email: string;
-    password: string;
+  readonly data: {
+    readonly email: string;
+    readonly password: string;
   };
 }

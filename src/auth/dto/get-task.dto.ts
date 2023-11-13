@@ -1,3 +1,3 @@
 export class getTask {
-  email: string;
+  readonly email: string;
 }

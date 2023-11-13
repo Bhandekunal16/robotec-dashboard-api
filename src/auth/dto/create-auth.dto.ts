@@ -1,3 +1,8 @@
 export class CreateAuthDto {
-  data: { email: string; password: string; phoneNumber: string; type: string };
+  readonly data: {
+    readonly email: string;
+    readonly password: string;
+    readonly phoneNumber: string;
+    readonly type: string;
+  };
 }

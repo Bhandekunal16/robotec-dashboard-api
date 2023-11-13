@@ -1,5 +1,5 @@
 export class CreateYoutubeDto {
-  type: string;
-  Date: string;
-  name: string;
+  readonly type: string;
+  readonly Date: string;
+  readonly name: string;
 }
