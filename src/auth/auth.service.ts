@@ -9,6 +9,7 @@ import { getTask } from './dto/get-task.dto';
 import { removeTask } from './dto/remove-task.dto';
 import { editTask } from './dto/edit-task.dto';
 import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
+import { getTaskCount } from './dto/get-task-count.dto';
 
 @Injectable()
 export class AuthService {
@@ -203,7 +204,7 @@ export class AuthService {
     }
   }
 
-  async getTaskCount(body: any) {
+  async getTaskCount(body: getTaskCount) {
     try {
       const success = await this.neo4jService.read(
         `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "Done"}) return count(u)`,

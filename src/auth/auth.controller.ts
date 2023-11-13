@@ -7,6 +7,7 @@ import { getTask } from './dto/get-task.dto';
 import { removeTask } from './dto/remove-task.dto';
 import { editTask } from './dto/edit-task.dto';
 import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
+import { getTaskCount } from './dto/get-task-count.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -48,7 +49,7 @@ export class AuthController {
   }
 
   @Post('task/count')
-  async getTaskCount(@Body() body: editTask) {
+  async getTaskCount(@Body() body: getTaskCount) {
     return await this.authService.getTaskCount(body);
   }
 
