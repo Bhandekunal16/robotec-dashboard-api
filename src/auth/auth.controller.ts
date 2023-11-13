@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { login } from './dto/login-dto';
@@ -45,5 +45,10 @@ export class AuthController {
   @Post('task/status/pending')
   async setTaskStatusPending(@Body() body: setTaskStatusPending) {
     return await this.authService.setTaskStatusPending(body);
+  }
+
+  @Get('task/count')
+  async getTaskCount() {
+    return await this.authService.getTaskCount();
   }
 }

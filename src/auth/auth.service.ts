@@ -202,4 +202,20 @@ export class AuthService {
       return { res: error, status: false, msg: response.ERROR };
     }
   }
+
+  async getTaskCount() {
+    try {
+      const success = await this.common.count('task', 'taskStatus', 'Done');
+      const pending = await this.common.count('task', 'taskStatus', 'pending');
+
+      return {
+        success: success.data,
+        pending: pending.data,
+        status: true,
+        msg: response.SUCCESS,
+      };
+    } catch (error) {
+      return { res: error, status: false, msg: response.ERROR };
+    }
+  }
 }
