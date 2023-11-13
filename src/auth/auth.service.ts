@@ -207,11 +207,11 @@ export class AuthService {
     try {
       const success = await this.neo4jService.read(
         `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "Done"}) return count(u)`,
-        { email: body.data.email },
+        { email: body.data },
       );
       const pending = await this.neo4jService.read(
         `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "pending"}) return count(u)`,
-        { email: body.data.email },
+        { email: body.data },
       );
 
       return {
