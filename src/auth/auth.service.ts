@@ -203,14 +203,20 @@ export class AuthService {
     }
   }
 
-  async getTaskCount() {
+  async getTaskCount(body: any) {
     try {
-      const success = await this.common.count('task', 'taskStatus', 'Done');
-      const pending = await this.common.count('task', 'taskStatus', 'pending');
+      const success = await this.neo4jService.read(
+        `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "Done"})`,
+        { email: body.data.email },
+      );
+      const pending = await this.neo4jService.read(
+        `match (u:user {email: $email})-[:has_task]->(t:task {taskStatus: "pending"})`,
+        { email: body.data.email },
+      );
 
       return {
-        success: success.data,
-        pending: pending.data,
+        success: success,
+        pending: pending,
         status: true,
         msg: response.SUCCESS,
       };

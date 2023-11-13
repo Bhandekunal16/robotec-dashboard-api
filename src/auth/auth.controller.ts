@@ -47,8 +47,8 @@ export class AuthController {
     return await this.authService.setTaskStatusPending(body);
   }
 
-  @Get('task/count')
-  async getTaskCount() {
-    return await this.authService.getTaskCount();
+  @Post('task/count')
+  async getTaskCount(@Body() body: editTask) {
+    return await this.authService.getTaskCount(body);
   }
 }
