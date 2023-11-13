@@ -51,4 +51,9 @@ export class AuthController {
   async getTaskCount(@Body() body: editTask) {
     return await this.authService.getTaskCount(body);
   }
+
+  @Post('task/get')
+  async matchUser(@Body() body: editTask) {
+    return await this.authService.matchUser(body);
+  }
 }

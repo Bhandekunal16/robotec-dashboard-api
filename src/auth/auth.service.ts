@@ -224,4 +224,17 @@ export class AuthService {
       return { res: error, status: false, msg: response.ERROR };
     }
   }
+
+  async matchUser(body: any) {
+    try {
+      const query = await this.common.matchNodeProperty(
+        'user',
+        'email',
+        body.data,
+      );
+      return query;
+    } catch (error) {
+      return { res: error, status: false, msg: response.ERROR };
+    }
+  }
 }
