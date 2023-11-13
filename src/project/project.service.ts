@@ -7,7 +7,6 @@ import { getAllProject } from './dto/getall-project.dto';
 import { editProject } from './dto/edit-project.dto';
 import { deleteProject } from './dto/delete-project.dto';
 import { getProject } from './dto/get-project.dto';
-const time = require('robotic-time');
 
 @Injectable()
 export class ProjectService {
