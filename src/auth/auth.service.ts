@@ -10,9 +10,11 @@ import { removeTask } from './dto/remove-task.dto';
 import { editTask } from './dto/edit-task.dto';
 import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
 import { getTaskCount } from './dto/get-task-count.dto';
+import { secret, time } from 'src/token/constants';
 
 @Injectable()
 export class AuthService {
+  jwtTokenService: any;
   constructor(
     @Inject(Neo4jService) private neo4jService: Neo4jService,
     private common: CommonService,
@@ -46,6 +48,52 @@ export class AuthService {
     }
   }
 
+  async updateRefreshToken(body: any, refreshToken: string) {
+    try {
+      Logger.verbose('email :' + body.data.email);
+      Logger.verbose('refreshToken :' + refreshToken);
+      const query = await this.neo4jService
+        .write(`match (u:user {email: "${body.data.email}"})
+    set u.token= "${refreshToken}"
+    return u`);
+      return query;
+    } catch (error) {
+      Logger.error('error' + error);
+      return error;
+    }
+  }
+
+  async getTokens(data: any) {
+    try {
+      const payload = {
+        userId: data.userId,
+        fullName: data.fullName,
+        email: data.email,
+        mobileNo: data.mobileNo,
+        roles: data.roles,
+      };
+
+      Logger.verbose(payload);
+      const [accessToken, refreshToken] = await Promise.all([
+        this.jwtTokenService.signAsync(payload, {
+          expiresIn: time.accessSecretExpireTime,
+          secret: secret.accessSecret,
+        }),
+        this.jwtTokenService.signAsync(payload, {
+          secret: secret.refreshSecret,
+          expiresIn: time.refreshSecretExpireTime,
+        }),
+      ]);
+      return {
+        accessToken,
+        refreshToken,
+      };
+    } catch (error) {
+      Logger.error({ reason: error, status: 'error' }, error);
+      return { reason: error, status: 'error' };
+    }
+  }
+
   async login(body: login) {
     try {
       console.log(body);
@@ -53,6 +101,28 @@ export class AuthService {
         `match (u: user {email: $email, password: $password}) return u`,
         { email: body.data.email, password: body.data.password },
       );
+
+      if (query.records.length > 0) {
+        let token: string;
+        const user = {
+          userId: query.records[0].get('u').properties.id,
+          email: query.records[0].get('u').properties.email,
+          password: query.records[0].get('u').properties.password,
+          phoneNumber: query.records[0].get('u').properties.phoneNumber,
+          type: query.records[0].get('u').properties.type,
+          token: '',
+        };
+        const getToken = await this.getTokens(user);
+
+        await this.updateRefreshToken(user.userId, getToken.refreshToken);
+        user.token = token;
+        return {
+          status: true,
+          token: getToken,
+          msg: 'success',
+        };
+      }
+
       return query.records.length > 0
         ? {
             data: query.records[0].get('u')['properties'],
