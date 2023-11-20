@@ -17,23 +17,7 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
   async intercept(context: ExecutionContext, next: CallHandler) {
     try {
       const request = context.switchToHttp().getRequest();
-      const urls = [
-        '/school/create/bank',
-        '/auth/create',
-        '/otp/create',
-        '/auth/update/password',
-        '/school/create',
-        '/kyc/upload/Kyc/School',
-        '/otp/verified',
-        '/otp/verified/user',
-        'Verify/School',
-        '/school/kyc/status',
-        '/auth/create/staff',
-        'school/get/School/Id',
-        '/student/getSchoolDetails',
-        '/verification/pan',
-        '/verification/gst',
-      ];
+      const urls = ['auth/register', 'auth/login'];
       Logger.verbose(' urls : ' + urls, 'interceptor');
 
       if (urls.includes(request.url)) {

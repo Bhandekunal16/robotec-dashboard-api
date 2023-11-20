@@ -11,13 +11,14 @@ import { editTask } from './dto/edit-task.dto';
 import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
 import { getTaskCount } from './dto/get-task-count.dto';
 import { secret, time } from 'src/token/constants';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  jwtTokenService: any;
   constructor(
     @Inject(Neo4jService) private neo4jService: Neo4jService,
     private common: CommonService,
+    private jwtTokenService: JwtService,
   ) {}
   async register(body: CreateAuthDto) {
     try {
@@ -48,12 +49,12 @@ export class AuthService {
     }
   }
 
-  async updateRefreshToken(body: any, refreshToken: string) {
+  async updateRefreshToken(data: any, refreshToken: string) {
     try {
-      Logger.verbose('email :' + body.data.email);
+      Logger.verbose('email :' + data);
       Logger.verbose('refreshToken :' + refreshToken);
       const query = await this.neo4jService
-        .write(`match (u:user {email: "${body.data.email}"})
+        .write(`match (u:user {email: "${data}"})
     set u.token= "${refreshToken}"
     return u`);
       return query;
@@ -66,11 +67,11 @@ export class AuthService {
   async getTokens(data: any) {
     try {
       const payload = {
-        userId: data.userId,
-        fullName: data.fullName,
+        id: data.id,
         email: data.email,
-        mobileNo: data.mobileNo,
-        roles: data.roles,
+        password: data.password,
+        phoneNumber: data.phoneNumber,
+        type: data.type,
       };
 
       Logger.verbose(payload);
@@ -105,7 +106,7 @@ export class AuthService {
       if (query.records.length > 0) {
         let token: string;
         const user = {
-          userId: query.records[0].get('u').properties.id,
+          id: query.records[0].get('u').properties.id,
           email: query.records[0].get('u').properties.email,
           password: query.records[0].get('u').properties.password,
           phoneNumber: query.records[0].get('u').properties.phoneNumber,
@@ -114,7 +115,7 @@ export class AuthService {
         };
         const getToken = await this.getTokens(user);
 
-        await this.updateRefreshToken(user.userId, getToken.refreshToken);
+        await this.updateRefreshToken(user.email, getToken.refreshToken);
         user.token = token;
         return {
           status: true,
