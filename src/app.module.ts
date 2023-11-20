@@ -12,6 +12,9 @@ import { ButtonService } from './button/button.service';
 import { DashboardService } from './dashboard/dashboard.service';
 import { MessageModule } from './message/message.module';
 import { AuthModule } from './auth/auth.module';
+import { APP_INTERCEPTOR, APP_GUARD } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
+import { GlobalInterceptorInterceptor } from './token/global-interceptor.interceptor';
 
 require('dotenv').config();
 
@@ -37,6 +40,16 @@ Logger.log('neo4j User Name :' + environment.username, 'appModule');
   ],
 
   controllers: [AppController],
-  providers: [AppService, CommonService, ButtonService, DashboardService],
+  providers: [
+    AppService,
+    CommonService,
+    ButtonService,
+    DashboardService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: GlobalInterceptorInterceptor,
+    },
+    JwtService,
+  ],
 })
 export class AppModule {}
