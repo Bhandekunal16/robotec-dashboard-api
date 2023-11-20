@@ -17,7 +17,7 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
   async intercept(context: ExecutionContext, next: CallHandler) {
     try {
       const request = context.switchToHttp().getRequest();
-      const urls = ['/auth/login', '/auth/register'];
+      const urls = ['/auth/login', '/auth/register', '/get/ButtonUI'];
       Logger.verbose(' urls : ' + urls, 'interceptor');
 
       if (urls.includes(request.url)) {
