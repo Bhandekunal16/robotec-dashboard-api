@@ -297,6 +297,25 @@ export class AuthService {
     }
   }
 
+  async getTaskUpdate(body: any) {
+    try {
+      const query = await this.neo4jService.read(
+        `MATCH (u:user {email: $email})-[r:has_task]->(n:task)
+      WHERE n.created IS NOT NULL AND n.created > 0
+      WITH n, datetime({ epochMillis: toInteger(n.created) }) AS creationDate
+      WHERE date(creationDate) = date()
+      RETURN n ;`,
+        { email: body.email },
+      );
+      const data = query.records.map((query) => query.get('t').properties);
+      return query.records.length > 0
+        ? { data: data, status: true, msg: response.SUCCESS }
+        : { data: null, status: false, msg: response.FAILURE };
+    } catch (error) {
+      return { res: error, status: false, msg: response.ERROR };
+    }
+  }
+
   async matchUser(email: any) {
     try {
       const query = await this.common.matchNodeProperty('user', 'email', email);
