@@ -12,6 +12,7 @@ import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
 import { getTaskCount } from './dto/get-task-count.dto';
 import { secret, time } from 'src/token/constants';
 import { JwtService } from '@nestjs/jwt';
+import { updatesTask } from './dto/updates-task.dto';
 
 @Injectable()
 export class AuthService {
@@ -297,7 +298,7 @@ export class AuthService {
     }
   }
 
-  async getTaskUpdate(body: any) {
+  async getTaskUpdate(body: updatesTask) {
     try {
       const query = await this.neo4jService.read(
         `MATCH (u:user {email: $email})-[r:has_task]->(n:task)
