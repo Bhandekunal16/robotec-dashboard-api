@@ -308,7 +308,7 @@ export class AuthService {
       RETURN n ;`,
         { email: body.email },
       );
-      const data = query.records.map((query) => query.get('t').properties);
+      const data = query.records.map((query) => query.get('n').properties);
       return query.records.length > 0
         ? { data: data, status: true, msg: response.SUCCESS }
         : { data: null, status: false, msg: response.FAILURE };
