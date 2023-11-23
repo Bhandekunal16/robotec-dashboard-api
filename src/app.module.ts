@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_INTERCEPTOR, APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { GlobalInterceptorInterceptor } from './token/global-interceptor.interceptor';
+import { ChatGateway } from './chat/chat.gateway';
 
 require('dotenv').config();
 
@@ -45,6 +46,7 @@ Logger.log('neo4j User Name :' + environment.username, 'appModule');
     CommonService,
     ButtonService,
     DashboardService,
+    ChatGateway,
     {
       provide: APP_INTERCEPTOR,
       useClass: GlobalInterceptorInterceptor,
