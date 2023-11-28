@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { IoAdapter } from '@nestjs/platform-socket.io';
+import { createServer } from 'http';
+import { Server, Socket } from 'socket.io';
 require('dotenv').config();
 Logger.log('host :' + process.env.LOCALHOST, 'main.ts');
 
@@ -16,8 +18,37 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
+
+  const server = createServer(app.getHttpAdapter().getInstance());
+
+  const io = new Server(server, {
+    cors: {
+      origin: 'http://localhost:3001',
+      methods: ['GET', 'POST'],
+    },
+  });
+
+  io.attach(server);
+
+  io.on('connection', (socket: Socket) => {
+    console.log('Client connected:', socket.id);
+
+    socket.on('disconnect', () => {
+      console.log('Client disconnected:', socket.id);
+    });
+  });
+
+  app.useWebSocketAdapter(new IoAdapter(io));
+
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
+
   app.useGlobalPipes(new ValidationPipe());
-  app.useWebSocketAdapter(new IoAdapter(app));
+
   await app.listen(process.env.LOCALHOST);
 }
 bootstrap();
