@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
@@ -7,6 +7,8 @@ import { getAllProject } from './dto/getall-project.dto';
 import { editProject } from './dto/edit-project.dto';
 import { deleteProject } from './dto/delete-project.dto';
 import { getProject } from './dto/get-project.dto';
+
+import { convertArrayToBinary } from 'src/data/descriptor';
 
 @Injectable()
 export class ProjectService {
@@ -52,8 +54,14 @@ export class ProjectService {
         { email: email },
       );
       const data = query.records.map((query) => query.get('p').properties);
+
+      const encrypt = await convertArrayToBinary(data);
+
+      Logger.log(encrypt);
+
       return query.records.length > 0
         ? {
+            encrypt: encrypt,
             data: data,
             status: true,
             msg: response.SUCCESS + 'project found.',
@@ -64,6 +72,7 @@ export class ProjectService {
             msg: response.FAILURE + 'project not found',
           };
     } catch (error) {
+      Logger.error('error' + error, 'project.service.ts');
       return { res: error, status: false, msg: response.ERROR };
     }
   }

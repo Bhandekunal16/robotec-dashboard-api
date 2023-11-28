@@ -13,6 +13,7 @@ import { getTaskCount } from './dto/get-task-count.dto';
 import { secret, time } from 'src/token/constants';
 import { JwtService } from '@nestjs/jwt';
 import { updatesTask } from './dto/updates-task.dto';
+import { convertArrayToBinary } from 'src/data/descriptor';
 
 @Injectable()
 export class AuthService {
@@ -200,9 +201,13 @@ export class AuthService {
         },
       );
       const data = query.records.map((query) => query.get('t').properties);
+
+      const encrypt = await convertArrayToBinary(data);
+
       return query.records.length > 0
         ? {
             data: data,
+            encrypt: encrypt,
             status: true,
             msg: response.SUCCESS + 'task found.',
           }
@@ -309,8 +314,11 @@ export class AuthService {
         { email: body.email },
       );
       const data = query.records.map((query) => query.get('n').properties);
+
+      const encrypt = await convertArrayToBinary(data);
+
       return query.records.length > 0
-        ? { data: data, status: true, msg: response.SUCCESS }
+        ? { data: data, encrypt: encrypt, status: true, msg: response.SUCCESS }
         : { data: null, status: false, msg: response.FAILURE };
     } catch (error) {
       return { res: error, status: false, msg: response.ERROR };
