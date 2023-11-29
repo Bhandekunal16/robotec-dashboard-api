@@ -13,6 +13,7 @@ import { getTaskCount } from './dto/get-task-count.dto';
 import { secret, time } from 'src/token/constants';
 import { JwtService } from '@nestjs/jwt';
 import { updatesTask } from './dto/updates-task.dto';
+import { Converter } from 'src/data/descriptor';
 
 @Injectable()
 export class AuthService {
@@ -200,10 +201,16 @@ export class AuthService {
         },
       );
       const data = query.records.map((query) => query.get('t').properties);
+      const name = query.records.map((query) => query.get('p').properties.name);
+      const convert = Converter(name);
+      for (let i = 0; i < data.length; i++) {
+        data[i]['name'] = (await convert).encrypt[i];
+      }
 
       return query.records.length > 0
         ? {
             data: data,
+            encrypt: (await convert).encrypt,
             status: true,
             msg: response.SUCCESS + 'task found.',
           }
