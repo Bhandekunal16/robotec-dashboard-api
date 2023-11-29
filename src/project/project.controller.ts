@@ -31,6 +31,11 @@ export class ProjectController {
     return await this.projectService.getAllProject(email);
   }
 
+  @Get('count/:email')
+  async count(@Param('email') email: any) {
+    return await this.projectService.getCount(email);
+  }
+
   @Post(project.getProject)
   async getProject(@Body() body: getProject) {
     return await this.projectService.getProject(body);

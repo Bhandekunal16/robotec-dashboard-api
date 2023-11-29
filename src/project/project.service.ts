@@ -63,7 +63,7 @@ export class ProjectService {
       console.log(query.records[0].get('p').properties.projectName);
 
       const convert = Converter(name);
-      
+
       for (let i = 0; i < data.length; i++) {
         data[i]['projectName'] = (await convert).encrypt[i];
       }
@@ -135,11 +135,18 @@ export class ProjectService {
     }
   }
 
-  async getCount() {
+  async getCount(email: string) {
     try {
-      const match = await this.common.matchNode('project');
-      return match.status
-        ? await this.common.count2('project')
+      const match = await this.neo4jService.read(
+        `match (u:user {email: $email})-[:HAS_PROJECT]->(p:project) return count(p)`,
+        { email },
+      );
+      return match.records.length > 0
+        ? {
+            data: match.records[0].get('count(p)').low,
+            status: true,
+            msg: response.SUCCESS + 'found project',
+          }
         : {
             data: null,
             status: false,
