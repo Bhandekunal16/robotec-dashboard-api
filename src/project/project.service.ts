@@ -7,8 +7,9 @@ import { getAllProject } from './dto/getall-project.dto';
 import { editProject } from './dto/edit-project.dto';
 import { deleteProject } from './dto/delete-project.dto';
 import { getProject } from './dto/get-project.dto';
-
-import { convertArrayToBinary } from 'src/data/descriptor';
+import { Converter } from 'src/data/descriptor';
+// import { convertToBinary } from 'src/data/descriptor';
+// import { convertToString } from 'src/data/descriptor';
 
 @Injectable()
 export class ProjectService {
@@ -55,13 +56,21 @@ export class ProjectService {
       );
       const data = query.records.map((query) => query.get('p').properties);
 
-      const encrypt = await convertArrayToBinary(data);
+      const name = query.records.map(
+        (query) => query.get('p').properties.projectName,
+      );
 
-      Logger.log(encrypt);
+      console.log(query.records[0].get('p').properties.projectName);
+
+      const convert = Converter(name);
+      
+      for (let i = 0; i < data.length; i++) {
+        data[i]['projectName'] = (await convert).encrypt[i];
+      }
 
       return query.records.length > 0
         ? {
-            encrypt: encrypt,
+            encrypt: (await convert).encrypt,
             data: data,
             status: true,
             msg: response.SUCCESS + 'project found.',

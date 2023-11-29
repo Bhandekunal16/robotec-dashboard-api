@@ -1,12 +1,8 @@
 import { Logger } from '@nestjs/common';
 
-function padLeft(str, length) {
-  return '0'.repeat(length - str.length) + str;
-}
-
-// Function to convert a string to binary representation
 export const convertToBinary = (input) => {
   try {
+    Logger.log(input, 'this is input');
     let binary = '';
     for (let i = 0; i < input.length; i++) {
       let charCode = input.charCodeAt(i).toString(2);
@@ -14,32 +10,52 @@ export const convertToBinary = (input) => {
     }
     return binary;
   } catch (error) {
-    Logger.error(error);
     return error;
   }
 };
 
-export const convertArrayToBinary = async (dataArray) => {
-  const resultArray = [];
+export const convertToString = (input) => {
+  try {
+    let string = '';
 
-  for (const innerArrayOrObject of dataArray) {
-    try {
-      let innerData;
-
-      if (Array.isArray(innerArrayOrObject)) {
-        innerData = innerArrayOrObject.join('');
-      } else if (typeof innerArrayOrObject === 'object') {
-        innerData = JSON.stringify(innerArrayOrObject);
-      } else {
-        throw new Error('Unsupported data type');
-      }
-
-      const encrypt = await convertToBinary(innerData);
-      resultArray.push(encrypt);
-    } catch (error) {
-      resultArray.push(error);
+    for (let i = 0; i < input.length; i += 8) {
+      let binaryCode = input.substr(i, 8);
+      let charCode = parseInt(binaryCode, 2);
+      string += String.fromCharCode(charCode);
     }
+
+    return string;
+  } catch (error) {
+    return error;
+  }
+};
+
+function padLeft(str, length) {
+  return '0'.repeat(length - str.length) + str;
+}
+
+export const Converter = async (name) => {
+  let encrypt,
+    array = [];
+  for (let index = 0; index < name.length; index++) {
+    const element = name[index];
+    encrypt = await convertToBinary(element);
+    array.push(encrypt);
   }
 
-  return resultArray;
+  const checker = convertString(array);
+
+  return { origin: checker, encrypt: array };
+};
+
+const convertString = async (array) => {
+  let descriptor;
+  const output: any = [];
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    descriptor = await convertToString(element);
+    output.push(descriptor);
+  }
+
+  return output;
 };
