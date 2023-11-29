@@ -12,7 +12,7 @@ export const convertToBinary = (input) => {
       let charCode = input.charCodeAt(i).toString(2);
       binary += padLeft(charCode, 8);
     }
-    return Buffer.from(binary, 'binary'); // Return a binary object (Buffer)
+    return binary;
   } catch (error) {
     Logger.error(error);
     return error;
