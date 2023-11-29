@@ -201,7 +201,7 @@ export class AuthService {
         },
       );
       const data = query.records.map((query) => query.get('t').properties);
-      const name = query.records.map((query) => query.get('p').properties.name);
+      const name = query.records.map((query) => query.get('t').properties.name);
       const convert = Converter(name);
       for (let i = 0; i < data.length; i++) {
         data[i]['name'] = (await convert).encrypt[i];
