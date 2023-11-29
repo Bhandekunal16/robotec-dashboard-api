@@ -295,19 +295,9 @@ export class AuthService {
         { email: body.data },
       );
 
-      const Success = success.records.map(
-        (success) => success.get('count(u)').low,
-      );
-      const Pending = pending.records.map(
-        (pending) => pending.get('count(u)').low,
-      );
-
-      const convertSuccess = Converter(Success);
-      const convertPending = Converter(Pending);
-
       return {
-        success: (await convertSuccess).encrypt,
-        pending: (await convertPending).encrypt,
+        success: success.records[0].get('count(u)').low,
+        pending: pending.records[0].get('count(u)').low,
         status: true,
         msg: response.SUCCESS,
       };
