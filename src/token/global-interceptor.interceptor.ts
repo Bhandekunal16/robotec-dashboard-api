@@ -22,8 +22,8 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
         '/auth/register',
         '/get/ButtonUI',
         'message',
-        '/project/count/:email',
-        '/auth/task/get/:email',
+        '/project/count',
+        '/auth/task/get',
         '/auth/task/count',
       ];
       Logger.verbose(' urls : ' + urls, 'interceptor');
