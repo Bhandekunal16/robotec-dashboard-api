@@ -23,8 +23,6 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
         '/get/ButtonUI',
         'message',
         '/project/count',
-        '/auth/task/get',
-        '/auth/task/count',
       ];
       Logger.verbose(' urls : ' + urls, 'interceptor');
 
