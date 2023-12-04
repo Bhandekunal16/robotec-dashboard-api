@@ -3,6 +3,7 @@ import { CreateYoutubeDto } from './dto/create-youtube.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
 import { CommonService } from 'src/common/common.service';
+import { getYoutubeVideo } from './dto/get-youtube.dto';
 
 @Injectable()
 export class YoutubeService {
@@ -38,7 +39,7 @@ export class YoutubeService {
     }
   }
 
-  async getAllYoutube(body: CreateYoutubeDto) {
+  async getAllYoutube() {
     try {
       const query = await this.common.matchNodeProperty(
         'youtube',
@@ -51,7 +52,7 @@ export class YoutubeService {
     }
   }
 
-  async getYoutube(body: CreateYoutubeDto) {
+  async getYoutube(body: getYoutubeVideo) {
     try {
       const query = await this.common.matchNodeProperty(
         'youtube',
@@ -64,7 +65,7 @@ export class YoutubeService {
     }
   }
 
-  async getCount1(createProjectDto: CreateYoutubeDto) {
+  async getCount1() {
     try {
       const query = await this.common.count2(`youtube`);
 
