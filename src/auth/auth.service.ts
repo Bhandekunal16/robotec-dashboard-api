@@ -72,8 +72,8 @@ export class AuthService {
           `MATCH (n:user {email: $email})
           set n+={
                userName: $userName,
-                age: age,
-                name: name
+                age: $age,
+                name: $name
           }
            return n `,
           {
