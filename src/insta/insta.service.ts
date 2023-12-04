@@ -24,7 +24,7 @@ export class InstaService {
       );
       return query.records.length > 0
         ? {
-            data: query.records[0].get('i')['properties'],
+            data: query.records[0].get('i').properties,
             msg: response.SUCCESS + 'insta account created successfully',
             status: true,
           }

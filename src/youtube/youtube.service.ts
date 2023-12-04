@@ -24,7 +24,7 @@ export class YoutubeService {
       );
       return query.records.length > 0
         ? {
-            data: query.records[0].get('y')['properties'],
+            data: query.records[0].get('y').properties,
             msg: response.SUCCESS + 'successfully created',
             status: true,
           }

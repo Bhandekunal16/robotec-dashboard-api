@@ -10,61 +10,62 @@ import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
 import { getTaskCount } from './dto/get-task-count.dto';
 import { updatesTask } from './dto/updates-task.dto';
 import { getUserEmail } from './dto/get-user-email.dto';
+import { authRoute } from 'src/routes/routes';
 
-@Controller('auth')
+@Controller(authRoute.Controller)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
+  @Post(authRoute.Register)
   async register(@Body() body: CreateAuthDto) {
     return await this.authService.register(body);
   }
 
-  @Post('add/info')
+  @Post(authRoute.addInfo)
   async addInfo(@Body() body: CreateAuthDto) {
     return await this.authService.addInfo(body);
   }
 
-  @Post('login')
+  @Post(authRoute.Login)
   async login(@Body() body: login) {
     return await this.authService.login(body);
   }
 
-  @Post('task/add')
+  @Post(authRoute.addTask)
   async addTask(@Body() body: addTask) {
     return await this.authService.AddTask(body);
   }
 
-  @Post('task/get')
+  @Post(authRoute.getTask)
   async GetTask(@Body() body: getTask) {
     return await this.authService.getTask(body);
   }
 
-  @Post('task/remove')
+  @Post(authRoute.removeTask)
   async removeTask(@Body() body: removeTask) {
     return await this.authService.removeTask(body);
   }
 
-  @Post('task/status')
+  @Post(authRoute.taskStatus)
   async editTaskStatus(@Body() body: editTask) {
     return await this.authService.editTaskStatus(body);
   }
 
-  @Post('task/status/pending')
+  @Post(authRoute.setTaskStatusPending)
   async setTaskStatusPending(@Body() body: setTaskStatusPending) {
     return await this.authService.setTaskStatusPending(body);
   }
 
-  @Post('task/updates')
+  @Post(authRoute.updateTask)
   async getTaskUpdate(@Body() body: updatesTask) {
     return await this.authService.getTaskUpdate(body);
   }
-  @Post('task/count')
+  @Post(authRoute.taskCount)
   async getTaskCount(@Body() body: getTaskCount) {
     return await this.authService.getTaskCount(body);
   }
 
-  @Get('task/get/:email')
+  @Get(authRoute.getTaskWithEmail)
   async matchUser(@Param('email') email: getUserEmail) {
     return await this.authService.matchUser(email);
   }

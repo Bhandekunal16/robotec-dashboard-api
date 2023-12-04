@@ -31,7 +31,7 @@ export class ProjectService {
       );
       return query.records.length > 0
         ? {
-            data: query.records[0].get('p')['properties'],
+            data: query.records[0].get('p').properties,
             status: true,
             msg: response.SUCCESS + 'project created successfully',
           }
@@ -99,7 +99,7 @@ export class ProjectService {
       );
       return query.records.length > 0
         ? {
-            data: query.records[0].get('p')['properties'],
+            data: query.records[0].get('p').properties,
             status: true,
             msg: response.SUCCESS + 'project edited successfully',
           }

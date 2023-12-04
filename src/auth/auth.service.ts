@@ -37,7 +37,7 @@ export class AuthService {
       );
       return query.records.length > 0
         ? {
-            data: query.records[0].get('m')['properties'],
+            data: query.records[0].get('m').properties,
             msg: response.SUCCESS + 'new user registered successfully',
             status: true,
           }
@@ -86,7 +86,7 @@ export class AuthService {
         );
         return query.records.length > 0
           ? {
-              data: query.records[0].get('n')['properties'],
+              data: query.records[0].get('n').properties,
               msg: response.SUCCESS + 'new user registered successfully',
               status: true,
             }
@@ -179,7 +179,7 @@ export class AuthService {
 
       return query.records.length > 0
         ? {
-            data: query.records[0].get('u')['properties'],
+            data: query.records[0].get('u').properties,
             status: true,
             msg: response.SUCCESS + 'Login successful',
           }
@@ -221,7 +221,7 @@ export class AuthService {
         );
         return query.records.length > 0
           ? {
-              data: query.records[0].get('t')['properties'],
+              data: query.records[0].get('t').properties,
               status: true,
               msg: response.SUCCESS + 'task added successfully',
             }
