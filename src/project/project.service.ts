@@ -7,9 +7,7 @@ import { getAllProject } from './dto/getall-project.dto';
 import { editProject } from './dto/edit-project.dto';
 import { deleteProject } from './dto/delete-project.dto';
 import { getProject } from './dto/get-project.dto';
-import { Converter } from 'src/data/descriptor';
-// import { convertToBinary } from 'src/data/descriptor';
-// import { convertToString } from 'src/data/descriptor';
+import { encrypt } from 'src/data/descriptor';
 
 @Injectable()
 export class ProjectService {
@@ -62,7 +60,7 @@ export class ProjectService {
 
       console.log(query.records[0].get('p').properties.projectName);
 
-      const convert = Converter(name);
+      const convert = encrypt.Converter(name);
 
       for (let i = 0; i < data.length; i++) {
         data[i]['projectName'] = (await convert).encrypt[i];

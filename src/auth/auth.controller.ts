@@ -9,6 +9,7 @@ import { editTask } from './dto/edit-task.dto';
 import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
 import { getTaskCount } from './dto/get-task-count.dto';
 import { updatesTask } from './dto/updates-task.dto';
+import { getUserEmail } from './dto/get-user-email.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -64,7 +65,7 @@ export class AuthController {
   }
 
   @Get('task/get/:email')
-  async matchUser(@Param('email') email: any) {
+  async matchUser(@Param('email') email: getUserEmail) {
     return await this.authService.matchUser(email);
   }
 }
