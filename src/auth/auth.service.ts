@@ -73,7 +73,7 @@ export class AuthService {
           set n+={
                userName: $userName,
                 age: age,
-                name: name,
+                name: name
           }
            return n `,
           {
