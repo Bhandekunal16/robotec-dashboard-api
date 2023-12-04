@@ -51,6 +51,56 @@ export class AuthService {
     }
   }
 
+  async addInfo(body: CreateAuthDto) {
+    try {
+      Logger.verbose(body);
+      const match = await this.common.matchNodeProperty(
+        'user',
+        'userName',
+        body.data.userName,
+      );
+
+      if (match.status) {
+        return {
+          data: null,
+          msg:
+            response.FAILURE + 'userName already taken try with new username',
+          status: false,
+        };
+      } else {
+        const query = await this.neo4jService.write(
+          `MATCH (n:user {email: $email})
+          set n+={
+               userName: $userName,
+                age: age,
+                name: name,
+          }
+           return n `,
+          {
+            email: body.data.email,
+            userName: body.data.userName,
+            age: body.data.age,
+            name: body.data.name,
+          },
+        );
+        return query.records.length > 0
+          ? {
+              data: query.records[0].get('n')['properties'],
+              msg: response.SUCCESS + 'new user registered successfully',
+              status: true,
+            }
+          : {
+              data: null,
+              msg: response.FAILURE + 'registration failed!',
+              status: false,
+            };
+      }
+    } catch (error) {
+      Logger.error(error);
+      return { res: error, status: false, msg: response.ERROR };
+    }
+  }
+
   async updateRefreshToken(data: any, refreshToken: string) {
     try {
       Logger.verbose('email :' + data);
