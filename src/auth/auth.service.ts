@@ -377,7 +377,7 @@ export class AuthService {
     }
   }
 
-  async matchUser(body: getUserEmail) {
+  async matchUser(body: any) {
     try {
       const query = await this.common.matchNodeProperty(
         'user',
