@@ -22,7 +22,7 @@ export class AuthService {
     @Inject(Neo4jService) private neo4jService: Neo4jService,
     private common: CommonService,
     private jwtTokenService: JwtService,
-  ) {}
+  ) { }
   async register(body: CreateAuthDto) {
     try {
       Logger.verbose(body);
@@ -37,15 +37,15 @@ export class AuthService {
       );
       return query.records.length > 0
         ? {
-            data: query.records[0].get('m').properties,
-            msg: response.SUCCESS + 'new user registered successfully',
-            status: true,
-          }
+          data: query.records[0].get('m').properties,
+          msg: response.SUCCESS + 'new user registered successfully',
+          status: true,
+        }
         : {
-            data: null,
-            msg: response.FAILURE + 'registration failed!',
-            status: false,
-          };
+          data: null,
+          msg: response.FAILURE + 'registration failed!',
+          status: false,
+        };
     } catch (error) {
       Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
@@ -86,15 +86,15 @@ export class AuthService {
         );
         return query.records.length > 0
           ? {
-              data: query.records[0].get('n').properties,
-              msg: response.SUCCESS + 'new user registered successfully',
-              status: true,
-            }
+            data: query.records[0].get('n').properties,
+            msg: response.SUCCESS + 'new user registered successfully',
+            status: true,
+          }
           : {
-              data: null,
-              msg: response.FAILURE + 'registration failed!',
-              status: false,
-            };
+            data: null,
+            msg: response.FAILURE + 'registration failed!',
+            status: false,
+          };
       }
     } catch (error) {
       Logger.error(error);
@@ -179,15 +179,15 @@ export class AuthService {
 
       return query.records.length > 0
         ? {
-            data: query.records[0].get('u').properties,
-            status: true,
-            msg: response.SUCCESS + 'Login successful',
-          }
+          data: query.records[0].get('u').properties,
+          status: true,
+          msg: response.SUCCESS + 'Login successful',
+        }
         : {
-            data: null,
-            status: false,
-            msg: response.FAILURE + 'please check your credentials',
-          };
+          data: null,
+          status: false,
+          msg: response.FAILURE + 'please check your credentials',
+        };
     } catch (error) {
       console.log(error);
 
@@ -221,17 +221,17 @@ export class AuthService {
         );
         return query.records.length > 0
           ? {
-              data: query.records[0].get('t').properties,
-              status: true,
-              msg: response.SUCCESS + 'task added successfully',
-            }
+            data: query.records[0].get('t').properties,
+            status: true,
+            msg: response.SUCCESS + 'task added successfully',
+          }
           : {
-              data: null,
-              status: false,
-              msg:
-                response.FAILURE +
-                'email address not matching. please check your credentials',
-            };
+            data: null,
+            status: false,
+            msg:
+              response.FAILURE +
+              'email address not matching. please check your credentials',
+          };
       } else {
         return { data: null, status: false, msg: 'same task present' };
       }
@@ -260,16 +260,16 @@ export class AuthService {
 
       return query.records.length > 0
         ? {
-            data: data,
-            encrypt: (await convert).encrypt,
-            status: true,
-            msg: response.SUCCESS + 'task found.',
-          }
+          data: data,
+          encrypt: (await convert).encrypt,
+          status: true,
+          msg: response.SUCCESS + 'task found.',
+        }
         : {
-            data: null,
-            status: false,
-            msg: response.FAILURE + 'task not found.',
-          };
+          data: null,
+          status: false,
+          msg: response.FAILURE + 'task not found.',
+        };
     } catch (error) {
       console.log(error);
       return { res: error, status: false, msg: response.ERROR };
@@ -377,12 +377,12 @@ export class AuthService {
     }
   }
 
-  async matchUser(body: any) {
+  async matchUser(email: any) {
     try {
       const query = await this.common.matchNodeProperty(
         'user',
         'email',
-        body.email,
+        email,
       );
       return query;
     } catch (error) {
