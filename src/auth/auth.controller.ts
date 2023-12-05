@@ -14,7 +14,7 @@ import { authRoute } from 'src/routes/routes';
 
 @Controller(authRoute.Controller)
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post(authRoute.Register)
   async register(@Body() body: CreateAuthDto) {
@@ -65,7 +65,7 @@ export class AuthController {
     return await this.authService.getTaskCount(body);
   }
 
-  @Get(authRoute.getTaskWithEmail)
+  @Get('task/get/:email')
   async matchUser(@Param('email') email: getUserEmail) {
     return await this.authService.matchUser(email);
   }
