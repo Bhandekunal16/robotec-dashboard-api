@@ -16,12 +16,12 @@ export class ProjectController {
     return await this.projectService.createProject(body);
   }
 
-  @Post('edit')
+  @Post(project.editProject)
   async EditProject(@Body() body: editProject) {
     return await this.projectService.editProject(body);
   }
 
-  @Post('delete')
+  @Post(project.deleteProject)
   async deleteProject(@Body() body: deleteProject) {
     return await this.projectService.deleteProject(body);
   }

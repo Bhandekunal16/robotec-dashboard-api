@@ -15,13 +15,15 @@ export const youtube = {
   get: 'getYoutube',
 };
 
-export const project = {
-  Controller: 'project',
-  AddProject: 'addproject',
-  GetAllProject: 'getallproject',
-  getCount: 'getCount',
-  getProject: 'getproject',
-};
+export class Project {
+  readonly Controller = 'project';
+  readonly AddProject = 'addproject';
+  readonly GetAllProject = 'getallproject';
+  readonly getCount = 'getCount';
+  readonly getProject = 'getproject';
+  readonly editProject = 'edit';
+  readonly deleteProject = 'delete'; 
+}
 
 export const instagram = {
   Controller: 'insta',
@@ -48,3 +50,4 @@ export class AuthRoute {
 }
 
 export const authRoute = new AuthRoute();
+export const project = new Project();

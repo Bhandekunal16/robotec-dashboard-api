@@ -9,12 +9,11 @@ import { editTask } from './dto/edit-task.dto';
 import { setTaskStatusPending } from './dto/set-task-status-pending.dto';
 import { getTaskCount } from './dto/get-task-count.dto';
 import { updatesTask } from './dto/updates-task.dto';
-import { getUserEmail } from './dto/get-user-email.dto';
 import { authRoute } from 'src/routes/routes';
 
 @Controller(authRoute.Controller)
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post(authRoute.Register)
   async register(@Body() body: CreateAuthDto) {
