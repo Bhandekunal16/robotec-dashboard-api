@@ -66,7 +66,7 @@ export class AuthController {
   }
 
   @Get('task/get/:email')
-  async matchUser(@Param('email') email: getUserEmail) {
+  async matchUser(@Param('email') email: any) {
     return await this.authService.matchUser(email);
   }
 }
