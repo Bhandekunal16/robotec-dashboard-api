@@ -1,53 +1,56 @@
-export const user = {
-  Controller: 'robotec-user',
-  register: 'test',
-  Login: 'login',
-  avatar: 'avtor',
-  RegisterShop: 'registershop',
-  EditProfile: 'editProfile',
-  GetAllUser: 'alluser',
-};
-export const youtube = {
-  Controller: 'youtube',
-  CreateYoutube: 'createYoutube',
-  getCount: 'getCount1',
-  getAll: 'getAllYoutube',
-  get: 'getYoutube',
-};
-
-export class Project {
-  readonly Controller = 'project';
-  readonly AddProject = 'addproject';
-  readonly GetAllProject = 'getallproject';
-  readonly getCount = 'getCount';
-  readonly getProject = 'getproject';
-  readonly editProject = 'edit';
-  readonly deleteProject = 'delete'; 
+export class User {
+  readonly Controller: string = 'robotec-user';
+  readonly register: string = 'test';
+  readonly Login: string = 'login';
+  readonly avatar: string = 'avtor';
+  readonly RegisterShop: string = 'registershop';
+  readonly EditProfile: string = 'editProfile';
+  readonly GetAllUser: string = 'alluser';
+}
+export class Youtube {
+  readonly Controller: string = 'youtube';
+  readonly CreateYoutube: string = 'createYoutube';
+  readonly getCount: string = 'getCount1';
+  readonly getAll: string = 'getAllYoutube';
+  readonly get: string = 'getYoutube';
 }
 
-export const instagram = {
-  Controller: 'insta',
-  createInsta: 'createInsta',
-  getAll: 'getAllinst',
-  getFollower: 'getFollower',
-  getFollowing: 'getFollowing',
-  getInsta: 'getInsta',
-};
+export class Project {
+  readonly Controller: string = 'project';
+  readonly AddProject: string = 'addproject';
+  readonly GetAllProject: string = 'getallproject';
+  readonly getCount: string = 'getCount';
+  readonly getProject: string = 'getproject';
+  readonly editProject: string = 'edit';
+  readonly deleteProject: string = 'delete';
+}
+
+export class Instagram {
+  readonly Controller: string = 'insta';
+  readonly createInsta: string = 'createInsta';
+  readonly getAll: string = 'getAllinst';
+  readonly getFollower: string = 'getFollower';
+  readonly getFollowing: string = 'getFollowing';
+  readonly getInsta: string = 'getInsta';
+}
 
 export class AuthRoute {
-  readonly Controller = 'auth';
-  readonly Register = 'register';
-  readonly addInfo = 'add/info';
-  readonly Login = 'login';
-  readonly addTask = 'task/add';
-  readonly getTask = 'task/get';
-  readonly removeTask = 'task/remove';
-  readonly taskStatus = 'task/status';
-  readonly setTaskStatusPending = 'task/status/pending';
-  readonly updateTask = 'task/updates';
-  readonly taskCount = 'task/count';
-  readonly getTaskWithEmail = 'task/get/:email';
+  readonly Controller: string = 'auth';
+  readonly Register: string = 'register';
+  readonly addInfo: string = 'add/info';
+  readonly Login: string = 'login';
+  readonly addTask: string = 'task/add';
+  readonly getTask: string = 'task/get';
+  readonly removeTask: string = 'task/remove';
+  readonly taskStatus: string = 'task/status';
+  readonly setTaskStatusPending: string = 'task/status/pending';
+  readonly updateTask: string = 'task/updates';
+  readonly taskCount: string = 'task/count';
+  readonly getTaskWithEmail: string = 'task/get/:email';
 }
 
 export const authRoute = new AuthRoute();
 export const project = new Project();
+export const youtube = new Youtube();
+export const instagram = new Instagram();
+export const user = new User();
