@@ -16,6 +16,7 @@ import { APP_INTERCEPTOR, APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { GlobalInterceptorInterceptor } from './token/global-interceptor.interceptor';
 import { ChatGateway } from './chat/chat.gateway';
+import { DescriptorModule } from './data/descriptor/descriptor.module';
 
 require('dotenv').config();
 
@@ -38,6 +39,7 @@ Logger.log('neo4j User Name :' + environment.username, 'appModule');
     YoutubeModule,
     MessageModule,
     AuthModule,
+    DescriptorModule,
   ],
 
   controllers: [AppController],

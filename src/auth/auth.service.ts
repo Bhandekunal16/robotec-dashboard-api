@@ -13,7 +13,7 @@ import { getTaskCount } from './dto/get-task-count.dto';
 import { secret, time } from 'src/token/constants';
 import { JwtService } from '@nestjs/jwt';
 import { updatesTask } from './dto/updates-task.dto';
-import { encrypt } from 'src/data/descriptor';
+import { encrypt } from 'src/data/descriptor/descriptor';
 
 @Injectable()
 export class AuthService {

@@ -7,7 +7,7 @@ import { getAllProject } from './dto/getall-project.dto';
 import { editProject } from './dto/edit-project.dto';
 import { deleteProject } from './dto/delete-project.dto';
 import { getProject } from './dto/get-project.dto';
-import { encrypt } from 'src/data/descriptor';
+import { encrypt } from 'src/data/descriptor/descriptor';
 
 @Injectable()
 export class ProjectService {
