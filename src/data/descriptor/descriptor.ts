@@ -4,7 +4,7 @@ import { Injectable, Logger } from '@nestjs/common';
 export class Encrypt {
   convertToBinary = (input) => {
     try {
-      Logger.log(input, 'this is input');
+      Logger.log('this is input' + input, 'descriptor.ts');
       let binary = '';
       for (let i = 0; i < input.length; i++) {
         let charCode = input.charCodeAt(i).toString(2);
@@ -17,6 +17,7 @@ export class Encrypt {
   };
 
   convertToString = (input) => {
+    Logger.log('this is input' + input, 'descriptor.ts');
     try {
       let string = '';
 
@@ -37,6 +38,7 @@ export class Encrypt {
   }
 
   Converter = async (name) => {
+    Logger.log('this is input' + name, 'descriptor.ts');
     let encrypt,
       array = [];
     for (let index = 0; index < name.length; index++) {
@@ -51,6 +53,7 @@ export class Encrypt {
   };
 
   convertString = async (array) => {
+    Logger.log('this is input' + array, 'descriptor.ts');
     let descriptor;
     const output: any = [];
     for (let index = 0; index < array.length; index++) {
