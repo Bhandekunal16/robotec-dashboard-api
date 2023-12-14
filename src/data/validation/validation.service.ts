@@ -21,4 +21,9 @@ export class ValidationService {
     const trimmedPinCode = String(pinCode).trim();
     return /^\d{6}$/.test(trimmedPinCode);
   }
+
+  TrimString(body: string): string {
+    const data = body.trim();
+    return data;
+  }
 }

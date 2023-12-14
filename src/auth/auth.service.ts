@@ -224,6 +224,8 @@ export class AuthService {
         body.data.name,
       );
 
+      const taskName = await this.validationService.TrimString(body.data.name);
+
       if (!match.status) {
         const query = await this.neo4jService.write(
           `match (u: user {email: $email})
@@ -231,7 +233,7 @@ export class AuthService {
           return t`,
           {
             email: body.data.email,
-            name: body.data.name,
+            name: taskName,
             type: body.data.type,
             created: new Date().getTime(),
           },
