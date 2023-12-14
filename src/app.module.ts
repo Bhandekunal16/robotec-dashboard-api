@@ -18,6 +18,7 @@ import { GlobalInterceptorInterceptor } from './token/global-interceptor.interce
 import { ChatGateway } from './chat/chat.gateway';
 import { DescriptorModule } from './data/descriptor/descriptor.module';
 import { ValidationService } from './data/validation/validation.service';
+import { DescriptorController } from './data/descriptor/descriptor.controller';
 
 require('dotenv').config();
 
