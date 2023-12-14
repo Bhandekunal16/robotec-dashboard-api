@@ -17,6 +17,7 @@ import { JwtService } from '@nestjs/jwt';
 import { GlobalInterceptorInterceptor } from './token/global-interceptor.interceptor';
 import { ChatGateway } from './chat/chat.gateway';
 import { DescriptorModule } from './data/descriptor/descriptor.module';
+import { ValidationService } from './data/validation/validation.service';
 
 require('dotenv').config();
 
@@ -54,6 +55,7 @@ Logger.log('neo4j User Name :' + environment.username, 'appModule');
       useClass: GlobalInterceptorInterceptor,
     },
     JwtService,
+    ValidationService,
   ],
 })
 export class AppModule {}

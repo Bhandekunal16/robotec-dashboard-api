@@ -14,6 +14,7 @@ import { secret, time } from 'src/token/constants';
 import { JwtService } from '@nestjs/jwt';
 import { updatesTask } from './dto/updates-task.dto';
 import { encrypt } from 'src/data/descriptor/descriptor';
+import { ValidationService } from 'src/data/validation/validation.service';
 
 @Injectable()
 export class AuthService {
@@ -21,30 +22,47 @@ export class AuthService {
     @Inject(Neo4jService) private neo4jService: Neo4jService,
     private common: CommonService,
     private jwtTokenService: JwtService,
+    private validationService: ValidationService,
   ) {}
   async register(body: CreateAuthDto) {
     try {
       Logger.verbose(body);
-      const query = await this.neo4jService.write(
-        `merge (m:user {email: $email, password: $password, phoneNumber: $phoneNumber, type: $type}) return m`,
-        {
-          email: body.data.email,
-          password: body.data.password,
-          phoneNumber: body.data.phoneNumber,
-          type: body.data.type,
-        },
-      );
-      return query.records.length > 0
-        ? {
-            data: query.records[0].get('m').properties,
-            msg: response.SUCCESS + 'new user registered successfully',
-            status: true,
-          }
-        : {
-            data: null,
-            msg: response.FAILURE + 'registration failed!',
-            status: false,
-          };
+
+      const email = this.validationService.isEmail(body.data.email)
+        ? body.data.email
+        : undefined;
+
+      const mobileNo = this.validationService.isMobile(body.data.phoneNumber)
+        ? body.data.phoneNumber
+        : undefined;
+
+      if (email && mobileNo !== undefined) {
+        const query = await this.neo4jService.write(
+          `merge (m:user {email: $email, password: $password, phoneNumber: $phoneNumber, type: $type}) return m`,
+          {
+            email: email,
+            password: body.data.password,
+            phoneNumber: mobileNo,
+            type: body.data.type,
+          },
+        );
+        return query.records.length > 0
+          ? {
+              data: query.records[0].get('m').properties,
+              msg: response.SUCCESS + 'new user registered successfully',
+              status: true,
+            }
+          : {
+              data: null,
+              msg: response.FAILURE + 'registration failed!',
+              status: false,
+            };
+      } else
+        return {
+          data: null,
+          msg: response.FAILURE + 'registration failed!',
+          status: false,
+        };
     } catch (error) {
       Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
