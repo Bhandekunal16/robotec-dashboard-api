@@ -1,27 +1,19 @@
 // notification.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { MessageService } from './message.service';
+import axios from 'axios';
+const apiUrl = 'https://mailer-service-eight.vercel.app/message/send-email';
 
 @Injectable()
 export class NotificationService {
-  constructor(private readonly emailService: MessageService) {}
-
   async sendEmailNotification(to: string, message: string) {
-    try {
-      const subject = 'Robotic';
-      const text = message;
-      const html = `<p>${message}</p>`;
-
-      if (text !== undefined) {
-        await this.emailService.sendEmail(to, subject, text, html);
-        return {
-          success: true,
-          message: 'Email notification sent successfully',
-        };
-      } else return {status: true, message: 'email not send due to message'}
-    } catch (error) {
-      return { res: error, status: false, msg: 'error' };
-    }
+    axios
+      .post(apiUrl, { to, message })
+      .then((response) => {
+        console.log('Response:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 }

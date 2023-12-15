@@ -1,13 +1,10 @@
 import { Controller, Post, Body, Logger } from '@nestjs/common';
-import { MessageService } from './message.service';
+
 import { NotificationService } from './notification.service';
 
 @Controller('message')
 export class MessageController {
-  constructor(
-    private readonly messageService: MessageService,
-    private notification: NotificationService,
-  ) {}
+  constructor(private notification: NotificationService) {}
 
   @Post('send-email')
   async sendEmailNotification(@Body() body: { to: string; message: string }) {
