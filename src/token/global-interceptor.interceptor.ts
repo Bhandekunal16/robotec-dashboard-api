@@ -36,6 +36,7 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
       }
       const accessToken = token.split(' ')[1];
       Logger.verbose('accessToken :' + accessToken, 'interceptor');
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const jwt = require('jsonwebtoken');
       const key: string = secret.accessSecret;
       const payload: any = jwt.verify(accessToken, key);

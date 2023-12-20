@@ -116,7 +116,7 @@ export class ProjectService {
   async deleteProject(body: deleteProject) {
     try {
       console.log(body);
-      const query = await this.neo4jService.write(
+      await this.neo4jService.write(
         `match (u: user { email: $email})-[:HAS_PROJECT]->(p:project {projectName: $projectName}) 
         detach delete p`,
         {

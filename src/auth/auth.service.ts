@@ -297,7 +297,7 @@ export class AuthService {
 
   async removeTask(body: removeTask) {
     try {
-      const query = await this.neo4jService.write(
+      await this.neo4jService.write(
         `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
       detach delete t`,
         {
@@ -317,7 +317,7 @@ export class AuthService {
 
   async editTaskStatus(body: editTask) {
     try {
-      const query = await this.neo4jService.write(
+      await this.neo4jService.write(
         `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
       set t.taskStatus= "Done"
       return t`,
@@ -338,7 +338,7 @@ export class AuthService {
 
   async setTaskStatusPending(body: setTaskStatusPending) {
     try {
-      const query = await this.neo4jService.write(
+      await this.neo4jService.write(
         `match (u:user {email : $email})-[:has_task]->(t:task {name: $name})
       set t.taskStatus= "pending"
       return t`,

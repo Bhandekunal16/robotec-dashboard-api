@@ -28,7 +28,7 @@ export class ValidationService {
   }
 
   TrimStringService(body: any): string {
-    const data = body.data.replace(/\s+/g, " ").trim();
+    const data = body.data.replace(/\s+/g, ' ').trim();
     return data;
   }
 }

@@ -8,7 +8,7 @@ export class Encrypt {
       Logger.log('this is input' + input, 'descriptor.ts');
       let binary = '';
       for (let i = 0; i < input.length; i++) {
-        let charCode = input.charCodeAt(i).toString(2);
+        const charCode = input.charCodeAt(i).toString(2);
         binary += this.padLeft(charCode, 8);
       }
       return binary;
@@ -23,8 +23,8 @@ export class Encrypt {
       let string = '';
 
       for (let i = 0; i < input.length; i += 8) {
-        let binaryCode = input.substr(i, 8);
-        let charCode = parseInt(binaryCode, 2);
+        const binaryCode = input.substr(i, 8);
+        const charCode = parseInt(binaryCode, 2);
         string += String.fromCharCode(charCode);
       }
 
@@ -40,8 +40,8 @@ export class Encrypt {
 
   Converter = async (name) => {
     Logger.log('this is input' + name, 'descriptor.ts');
-    let encrypt,
-      array = [];
+    let encrypt;
+    const array = [];
     for (let index = 0; index < name.length; index++) {
       const element = name[index];
       encrypt = await this.convertToBinary(element);
@@ -105,7 +105,7 @@ export class Encrypt {
 
       let binary = '';
       for (let i = 0; i < input.data.length; i++) {
-        let charCode = input.data.charCodeAt(i).toString(2);
+        const charCode = input.data.charCodeAt(i).toString(2);
         binary += this.PadLeft(charCode, 8);
       }
 
