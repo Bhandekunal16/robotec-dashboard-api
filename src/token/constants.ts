@@ -1,13 +1,17 @@
-export const secret = {
-  accessSecret: 'accessSecret',
-  refreshSecret: 'refreshSecret',
-};
+class Secret {
+  readonly accessSecret: string = 'accessSecret';
+  readonly refreshSecret: string = 'refreshSecret';
+}
 
-export const jwtConstants: any = {
-  secret: '123456789',
-};
+class JwtConstants {
+  readonly secret: string = '123456789';
+}
 
-export const time = {
-  accessSecretExpireTime: '2d',
-  refreshSecretExpireTime: '7d',
-};
+class Time {
+  readonly accessSecretExpireTime: string = '2d';
+  readonly refreshSecretExpireTime: string = '7d';
+}
+
+export const secret = new Secret();
+export const jwtConstants = new JwtConstants();
+export const time = new Time();

@@ -1,4 +1,4 @@
-export class User {
+class User {
   readonly Controller: string = 'robotec-user';
   readonly register: string = 'test';
   readonly Login: string = 'login';
@@ -7,7 +7,7 @@ export class User {
   readonly EditProfile: string = 'editProfile';
   readonly GetAllUser: string = 'alluser';
 }
-export class Youtube {
+class Youtube {
   readonly Controller: string = 'youtube';
   readonly CreateYoutube: string = 'createYoutube';
   readonly getCount: string = 'getCount1';
@@ -15,7 +15,7 @@ export class Youtube {
   readonly get: string = 'getYoutube';
 }
 
-export class Project {
+class Project {
   readonly Controller: string = 'project';
   readonly AddProject: string = 'addproject';
   readonly GetAllProject: string = 'getallproject';
@@ -25,7 +25,7 @@ export class Project {
   readonly deleteProject: string = 'delete';
 }
 
-export class Instagram {
+class Instagram {
   readonly Controller: string = 'insta';
   readonly createInsta: string = 'createInsta';
   readonly getAll: string = 'getAllinst';
@@ -34,7 +34,7 @@ export class Instagram {
   readonly getInsta: string = 'getInsta';
 }
 
-export class AuthRoute {
+class AuthRoute {
   readonly Controller: string = 'auth';
   readonly Register: string = 'register';
   readonly addInfo: string = 'add/info';
