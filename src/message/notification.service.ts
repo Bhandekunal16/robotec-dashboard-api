@@ -1,5 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { logger } from 'src/interface/Logger';
 
 const apiUrl = 'https://mailer-service-eight.vercel.app/message/send-email';
 
@@ -9,7 +10,7 @@ export class NotificationService {
     try {
       await axios.post(apiUrl, { to, message });
     } catch (error) {
-      Logger.error('Error:', error.message || error);
+      logger.error(error.message || error);
     }
   }
 }

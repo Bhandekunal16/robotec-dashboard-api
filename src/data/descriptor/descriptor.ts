@@ -1,11 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { response } from 'src/constant/response';
+import { logger } from 'src/interface/Logger';
 
 @Injectable()
 export class Encrypt {
   convertToBinary = (input) => {
     try {
-      Logger.log('this is input' + input, 'descriptor.ts');
+      logger.log('this is input' + input + 'descriptor.ts');
       let binary = '';
       for (let i = 0; i < input.length; i++) {
         const charCode = input.charCodeAt(i).toString(2);
@@ -18,7 +19,7 @@ export class Encrypt {
   };
 
   convertToString = (input) => {
-    Logger.log('this is input' + input, 'descriptor.ts');
+    logger.log('this is input' + input + 'descriptor.ts');
     try {
       let string = '';
 
@@ -39,7 +40,7 @@ export class Encrypt {
   }
 
   Converter = async (name) => {
-    Logger.log('this is input' + name, 'descriptor.ts');
+    logger.log('this is input' + name + 'descriptor.ts');
     let encrypt;
     const array = [];
     for (let index = 0; index < name.length; index++) {
@@ -54,7 +55,7 @@ export class Encrypt {
   };
 
   convertString = async (array) => {
-    Logger.log('this is input' + array, 'descriptor.ts');
+    logger.log('this is input' + array + 'descriptor.ts');
     let descriptor;
     const output: any = [];
     for (let index = 0; index < array.length; index++) {
@@ -76,7 +77,9 @@ export class Encrypt {
 
       const binaryData = input.data;
 
-      Logger.log(`Converting binary to string: ${binaryData}`, 'descriptor.ts');
+      logger.log(
+        `Converting binary to string: ${binaryData}` + 'descriptor.ts',
+      );
 
       let result = '';
       for (let i = 0; i < binaryData.length; i += 8) {
@@ -84,12 +87,11 @@ export class Encrypt {
         result += String.fromCharCode(parseInt(byte, 2));
       }
 
-      Logger.log(`String representation: ${result}`, 'descriptor.ts');
+      logger.log(`String representation: ${result}` + 'descriptor.ts');
       return { data: result, status: true, msg: 'SUCCESS' };
     } catch (error) {
-      Logger.error(
-        `Error converting binary to string: ${error.message}`,
-        'descriptor.ts',
+      logger.error(
+        `Error converting binary to string: ${error.message}` + 'descriptor.ts',
       );
       return { data: '', status: false, msg: error.message };
     }
@@ -101,7 +103,9 @@ export class Encrypt {
         throw new Error('Input must be a string.');
       }
 
-      Logger.log(`Converting string to binary: ${input.data}`, 'descriptor.ts');
+      logger.log(
+        `Converting string to binary: ${input.data}` + 'descriptor.ts',
+      );
 
       let binary = '';
       for (let i = 0; i < input.data.length; i++) {
@@ -109,16 +113,15 @@ export class Encrypt {
         binary += this.PadLeft(charCode, 8);
       }
 
-      Logger.log(`Binary representation: ${binary}`, 'descriptor.ts');
+      logger.log(`Binary representation: ${binary}` + 'descriptor.ts');
       return {
         data: binary,
         status: true,
         msg: response.SUCCESS + 'string is encripted',
       };
     } catch (error) {
-      Logger.error(
-        `Error converting string to binary: ${error.message}`,
-        'descriptor.ts',
+      logger.error(
+        `Error converting string to binary: ${error.message}` + 'descriptor.ts',
       );
       return { data: '', status: false, msg: error.message };
     }

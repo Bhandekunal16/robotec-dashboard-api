@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { response } from 'src/constant/response';
 import { Neo4jService } from 'nest-neo4j/dist';
@@ -15,6 +15,7 @@ import { JwtService } from '@nestjs/jwt';
 import { updatesTask } from './dto/updates-task.dto';
 import { encrypt } from 'src/data/descriptor/descriptor';
 import { ValidationService } from 'src/data/validation/validation.service';
+import { logger } from 'src/interface/Logger';
 
 @Injectable()
 export class AuthService {
@@ -62,7 +63,7 @@ export class AuthService {
           status: false,
         };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -111,7 +112,7 @@ export class AuthService {
             };
       }
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -124,7 +125,7 @@ export class AuthService {
     return u`);
       return query;
     } catch (error) {
-      Logger.error('error' + error);
+      logger.error('error' + error);
       return error;
     }
   }
@@ -153,7 +154,7 @@ export class AuthService {
         refreshToken,
       };
     } catch (error) {
-      Logger.error({ reason: error, status: 'error' }, error);
+      logger.error({ reason: error, status: 'error' });
       return { reason: error, status: 'error' };
     }
   }
@@ -198,7 +199,7 @@ export class AuthService {
             msg: response.FAILURE + 'please check your credentials',
           };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -246,7 +247,7 @@ export class AuthService {
         return { data: null, status: false, msg: 'same task present' };
       }
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -280,7 +281,7 @@ export class AuthService {
             msg: response.FAILURE + 'task not found.',
           };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -300,7 +301,7 @@ export class AuthService {
         msg: response.SUCCESS + 'task removed successfully',
       };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -321,7 +322,7 @@ export class AuthService {
         msg: response.SUCCESS + 'task edited successfully.',
       };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -339,7 +340,7 @@ export class AuthService {
       );
       return { status: true, msg: response.SUCCESS + 'task status changed' };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }

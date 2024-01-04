@@ -1,13 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { IoAdapter } from '@nestjs/platform-socket.io';
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
+import { logger } from './interface/Logger';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
-Logger.log('host :' + process.env.LOCALHOST, 'main.ts');
+logger.log('host :' + process.env.LOCALHOST);
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {

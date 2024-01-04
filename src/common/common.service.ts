@@ -1,13 +1,14 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
+import { logger } from 'src/interface/Logger';
 
 @Injectable()
 export class CommonService {
   constructor(private neo: Neo4jService) {}
   async matchNode(node: any) {
     try {
-      Logger.log('in the match node');
+      logger.log('in the match node');
       const query = await this.neo.read(`match (n:${node}) return n`);
       const data = query.records.map((query) => query.get('n').properties);
       return query.records.length > 0
@@ -24,7 +25,7 @@ export class CommonService {
 
   async matchNodeProperty(node: any, property: any, value: any) {
     try {
-      Logger.log('in the match node');
+      logger.log('in the match node');
       const query = await this.neo.read(
         `match (n:${node} {${property} : $value}) return n`,
         { value },
@@ -48,7 +49,7 @@ export class CommonService {
         `match (n:${node} {${property} : $value}) return count(n)`,
         { value },
       );
-      Logger.verbose(Query.records.length);
+      logger.log(Query.records.length);
       return Query.records.length > 0
         ? {
             data: Query.records[0].get('count(n)').low,
@@ -61,7 +62,7 @@ export class CommonService {
             msg: response.FAILURE + `count for ${node}`,
           };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -69,7 +70,7 @@ export class CommonService {
   async count2(node: any) {
     try {
       const Query = await this.neo.read(`match (n:${node}) return count(n)`);
-      Logger.verbose(Query.records.length);
+      logger.log(Query.records.length);
       return Query.records.length > 0
         ? {
             data: Query.records[0].get('count(n)').low,
@@ -82,7 +83,7 @@ export class CommonService {
             msg: response.FAILURE + `count for ${node}`,
           };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -107,7 +108,7 @@ export class CommonService {
 
       const data = Query.records.map((record) => record.get('m').properties);
       const data2 = Query.records.map((record) => record.get('n').properties);
-      Logger.verbose(Query.records.length);
+      logger.log(Query.records.length);
       return Query.records.length > 0
         ? {
             data: data,
@@ -121,7 +122,7 @@ export class CommonService {
             msg: response.FAILURE + 'node not found',
           };
     } catch (error) {
-      Logger.error(error);
+      logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }

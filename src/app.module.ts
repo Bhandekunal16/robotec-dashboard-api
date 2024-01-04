@@ -18,13 +18,14 @@ import { GlobalInterceptorInterceptor } from './token/global-interceptor.interce
 import { ChatGateway } from './chat/chat.gateway';
 import { DescriptorModule } from './data/descriptor/descriptor.module';
 import { ValidationService } from './data/validation/validation.service';
+import { logger } from './interface/Logger';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
-Logger.log('neo4j PORT :' + process.env.PORT, 'appModule');
-Logger.log('neo4j HOST :' + process.env.HOST, 'appModule');
-Logger.log('neo4j User Name :' + environment.username, 'appModule');
+logger.log('neo4j PORT :' + process.env.PORT);
+logger.log('neo4j HOST :' + process.env.HOST);
+logger.log('neo4j User Name :' + environment.username);
 
 @Module({
   imports: [

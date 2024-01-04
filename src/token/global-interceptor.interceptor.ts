@@ -4,12 +4,12 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  Logger,
   NestInterceptor,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { secret } from './constants';
+import { logger } from 'src/interface/Logger';
 //   import { auth } from 'src/routes/routes';
 @Injectable()
 export class GlobalInterceptorInterceptor implements NestInterceptor {
@@ -39,7 +39,7 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
       jwt.verify(accessToken, key);
       return next.handle();
     } catch (error) {
-      Logger.error('error' + error.message, 'interceptor');
+      logger.error('error' + error.message + 'interceptor');
       if (typeof error.message === 'string') {
         throw new UnauthorizedException(error.message);
       } else {

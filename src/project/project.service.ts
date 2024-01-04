@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { Neo4jService } from 'nest-neo4j/dist';
 import { response } from 'src/constant/response';
@@ -8,6 +8,7 @@ import { editProject } from './dto/edit-project.dto';
 import { deleteProject } from './dto/delete-project.dto';
 import { getProject } from './dto/get-project.dto';
 import { encrypt } from 'src/data/descriptor/descriptor';
+import { logger } from 'src/interface/Logger';
 
 @Injectable()
 export class ProjectService {
@@ -40,7 +41,7 @@ export class ProjectService {
             msg: response.FAILURE + 'failed to create project',
           };
     } catch (error) {
-      Logger.log(error);
+      logger.log(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -76,7 +77,7 @@ export class ProjectService {
             msg: response.FAILURE + 'project not found',
           };
     } catch (error) {
-      Logger.error('error' + error, 'project.service.ts');
+      logger.error('error' + error + 'project.service.ts');
       return { res: error, status: false, msg: response.ERROR };
     }
   }
