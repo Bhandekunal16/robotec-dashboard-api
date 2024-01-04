@@ -26,8 +26,6 @@ export class AuthService {
   ) {}
   async register(body: CreateAuthDto) {
     try {
-      Logger.verbose(body);
-
       const email = this.validationService.isEmail(body.data.email)
         ? body.data.email
         : undefined;
@@ -71,7 +69,6 @@ export class AuthService {
 
   async addInfo(body: CreateAuthDto) {
     try {
-      Logger.verbose(body);
       const match = await this.common.matchNodeProperty(
         'user',
         'userName',
@@ -121,8 +118,6 @@ export class AuthService {
 
   async updateRefreshToken(data: any, refreshToken: string) {
     try {
-      Logger.verbose('email :' + data);
-      Logger.verbose('refreshToken :' + refreshToken);
       const query = await this.neo4jService
         .write(`match (u:user {email: "${data}"})
     set u.token= "${refreshToken}"
@@ -143,8 +138,6 @@ export class AuthService {
         phoneNumber: data.phoneNumber,
         type: data.type,
       };
-
-      Logger.verbose(payload);
       const [accessToken, refreshToken] = await Promise.all([
         this.jwtTokenService.signAsync(payload, {
           expiresIn: time.accessSecretExpireTime,
@@ -167,7 +160,6 @@ export class AuthService {
 
   async login(body: login) {
     try {
-      console.log(body);
       const query = await this.neo4jService.read(
         `match (u: user {email: $email, password: $password}) return u`,
         { email: body.data.email, password: body.data.password },
@@ -206,8 +198,7 @@ export class AuthService {
             msg: response.FAILURE + 'please check your credentials',
           };
     } catch (error) {
-      console.log(error);
-
+      Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -255,14 +246,13 @@ export class AuthService {
         return { data: null, status: false, msg: 'same task present' };
       }
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
 
   async getTask(body: getTask) {
     try {
-      console.log(body);
       const query = await this.neo4jService.write(
         `match (u:user {email : $email})-[:has_task]->(t:task)
         return t`,
@@ -290,7 +280,7 @@ export class AuthService {
             msg: response.FAILURE + 'task not found.',
           };
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -310,7 +300,7 @@ export class AuthService {
         msg: response.SUCCESS + 'task removed successfully',
       };
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -331,7 +321,7 @@ export class AuthService {
         msg: response.SUCCESS + 'task edited successfully.',
       };
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -349,7 +339,7 @@ export class AuthService {
       );
       return { status: true, msg: response.SUCCESS + 'task status changed' };
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }

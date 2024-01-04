@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { IoAdapter } from '@nestjs/platform-socket.io';
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 Logger.log('host :' + process.env.LOCALHOST, 'main.ts');
 

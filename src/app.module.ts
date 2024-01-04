@@ -12,14 +12,14 @@ import { ButtonService } from './button/button.service';
 import { DashboardService } from './dashboard/dashboard.service';
 import { MessageModule } from './message/message.module';
 import { AuthModule } from './auth/auth.module';
-import { APP_INTERCEPTOR, APP_GUARD } from '@nestjs/core';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { GlobalInterceptorInterceptor } from './token/global-interceptor.interceptor';
 import { ChatGateway } from './chat/chat.gateway';
 import { DescriptorModule } from './data/descriptor/descriptor.module';
 import { ValidationService } from './data/validation/validation.service';
-import { DescriptorController } from './data/descriptor/descriptor.controller';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 Logger.log('neo4j PORT :' + process.env.PORT, 'appModule');

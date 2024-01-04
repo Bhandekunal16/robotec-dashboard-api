@@ -24,10 +24,8 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
         'message',
         '/project/count',
       ];
-      Logger.verbose(' urls : ' + urls, 'interceptor');
 
       if (urls.includes(request.url)) {
-        Logger.verbose('true : ' + request.url, 'interceptor');
         return next.handle();
       }
       const token = request.header('authorization');
@@ -35,16 +33,13 @@ export class GlobalInterceptorInterceptor implements NestInterceptor {
         throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
       }
       const accessToken = token.split(' ')[1];
-      Logger.verbose('accessToken :' + accessToken, 'interceptor');
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const jwt = require('jsonwebtoken');
       const key: string = secret.accessSecret;
-      const payload: any = jwt.verify(accessToken, key);
-      Logger.verbose('payload :' + payload, 'interceptor');
+      jwt.verify(accessToken, key);
       return next.handle();
     } catch (error) {
       Logger.error('error' + error.message, 'interceptor');
-      // ! if there's an error, handle it and send an appropriate response
       if (typeof error.message === 'string') {
         throw new UnauthorizedException(error.message);
       } else {

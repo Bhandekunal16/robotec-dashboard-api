@@ -18,7 +18,6 @@ export class ProjectService {
 
   async createProject(body: CreateProjectDto) {
     try {
-      console.log(body);
       const query = await this.neo4jService.write(
         `match (u: user { email: $email})
         merge (u)-[:HAS_PROJECT]->(p:project {projectName: $projectName,codeIn: $codeIn, Date: $Date}) return p`,
@@ -41,7 +40,7 @@ export class ProjectService {
             msg: response.FAILURE + 'failed to create project',
           };
     } catch (error) {
-      console.log(error);
+      Logger.log(error);
       return { res: error, status: false, msg: response.ERROR };
     }
   }
@@ -57,8 +56,6 @@ export class ProjectService {
       const name = query.records.map(
         (query) => query.get('p').properties.projectName,
       );
-
-      console.log(query.records[0].get('p').properties.projectName);
 
       const convert = encrypt.Converter(name);
 

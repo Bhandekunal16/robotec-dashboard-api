@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 
 const apiUrl = 'https://mailer-service-eight.vercel.app/message/send-email';
@@ -7,10 +7,9 @@ const apiUrl = 'https://mailer-service-eight.vercel.app/message/send-email';
 export class NotificationService {
   async sendEmailNotification(to: string, message: string) {
     try {
-      const response = await axios.post(apiUrl, { to, message });
-      console.log('Response:', response.data);
+      await axios.post(apiUrl, { to, message });
     } catch (error) {
-      console.error('Error:', error.message || error);
+      Logger.error('Error:', error.message || error);
     }
   }
 }

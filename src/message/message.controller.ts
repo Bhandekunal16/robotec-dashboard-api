@@ -10,11 +10,10 @@ export class MessageController {
   async sendEmailNotification(@Body() body: { to: string; message: string }) {
     try {
       const { to, message } = body;
-      Logger.log(to, message);
       await this.notification.sendEmailNotification(to, message);
       return { success: true, message: 'Email notification request received' };
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return { success: false, error: 'Failed to send email notification' };
     }
   }
